@@ -25,6 +25,7 @@ export default async function ProposalPage({ params }: { params: Promise<{ id: s
       <div className="no-print mb-4 flex items-center gap-2">
         <Link href={`/missions/${m.id}?tab=proposition`} className="btn-ghost">← Retour mission</Link>
         <PrintButton />
+        {snap.lots.some((l) => !l.options.some((o) => o.recommended)) && <span className="chip bg-amber-50 px-3 py-1 text-amber-800 ring-1 ring-amber-200">⚠ Un ou plusieurs postes sans option recommandée : le total les exclut</span>}
         <span className="text-xs text-muted">Astuce : « Enregistrer en PDF » dans la fenêtre d'impression.</span>
       </div>
       <article className="mx-auto max-w-[860px] bg-white p-10 shadow-xl print:shadow-none">

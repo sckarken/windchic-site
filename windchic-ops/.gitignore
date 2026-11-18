@@ -5,3 +5,4 @@ node_modules
 *.db-journal
 data/*.local.json
 next-env.d.ts
+captures/

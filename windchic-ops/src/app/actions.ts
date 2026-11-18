@@ -146,7 +146,8 @@ export async function updateQuote(f: FormData) {
   await requireSession();
   const id = str(f, "id")!;
   const amountHT = num(f, "amountHT");
-  const status = str(f, "status") ?? undefined;
+  let status = str(f, "status") ?? undefined;
+  if (amountHT != null && (status === "DEMANDE" || status === "SANS_REPONSE")) status = "RECU"; // un prix saisi = devis reçu
   const q = await db.supplierQuote.update({ where: { id }, include: { lot: true }, data: {
     amountHT, vatAmount: num(f, "vatAmount"), status: status ?? (amountHT != null ? "RECU" : undefined),
     receivedAt: amountHT != null ? new Date() : undefined, validUntil: date(f, "validUntil"),
@@ -159,6 +160,7 @@ export async function updateQuote(f: FormData) {
 export async function toggleSelect(f: FormData) {
   await requireSession();
   const q = await db.supplierQuote.findUniqueOrThrow({ where: { id: str(f, "id")! }, include: { lot: true } });
+  if (!q.selected && q.amountHT == null) redirect(back(q.lot.missionId, "chiffrage", "Saisissez le prix du devis avant de le retenir"));
   await db.supplierQuote.update({ where: { id: q.id }, data: { selected: !q.selected, status: !q.selected ? "RETENU" : "RECU" } });
   redirect(back(q.lot.missionId, "chiffrage"));
 }

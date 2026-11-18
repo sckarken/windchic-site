@@ -53,7 +53,7 @@ export async function Pricing({ m, fin, canIdentity, canMoney }: TabProps) {
 
               <div className="divide-y divide-black/5">
                 {lot.quotes.length === 0 && <div className="p-5 text-sm text-muted">Aucun fournisseur consulté. Objectif : 2 devis minimum (3 à 5 demandes).</div>}
-                {lot.quotes.map((q, i) => {
+                {[...lot.quotes].sort((a, b) => (a.amountHT ?? Infinity) - (b.amountHT ?? Infinity)).map((q, i) => {
                   const sell = lineSellPrice(q, m.markupRate);
                   const margin = q.amountHT != null ? sell - q.amountHT : null;
                   return (
@@ -67,7 +67,7 @@ export async function Pricing({ m, fin, canIdentity, canMoney }: TabProps) {
                         {q.conform === false && <span className="chip bg-rose-50 text-rose-700">non conforme</span>}
                         <span className="text-xs text-muted">demandé {d(q.requestedAt)}</span>
                         <form action={toggleSelect} className="ml-auto"><input type="hidden" name="id" value={q.id} />
-                          <button className={q.selected ? "btn-primary btn-sm" : "btn-ghost btn-sm ring-1 ring-black/10"}>{q.selected ? "✓ Option retenue" : "Retenir cette option"}</button>
+                          <button disabled={!q.selected && q.amountHT == null} title={q.amountHT == null ? "Saisir le prix du devis avant de le retenir" : undefined} className={q.selected ? "btn-primary btn-sm" : "btn-ghost btn-sm ring-1 ring-black/10"}>{q.selected ? "✓ Option retenue" : q.amountHT == null ? "Prix à saisir" : "Retenir cette option"}</button>
                         </form>
                       </div>
                       <form action={updateQuote} className="grid gap-2 md:grid-cols-12">
