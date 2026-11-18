@@ -1,0 +1,251 @@
+// WINDCHIC Ops — modèle de données
+// Dev : SQLite. Prod : passer provider = "postgresql" (Supabase) sans autre changement.
+// Les "enums" sont des String validées côté code (src/lib/constants.ts) pour rester compatibles SQLite.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         String     @default("PM") // ADMIN | PM | PARTNER
+  lang         String     @default("fr") // fr | zh
+  createdAt    DateTime   @default(now())
+  relationOf   Mission[]  @relation("relationOwner")
+  opsOf        Mission[]  @relation("opsOwner")
+  tasks        Task[]
+  activities   Activity[]
+}
+
+model Client {
+  id             String    @id @default(cuid())
+  name           String
+  legalName      String?
+  country        String?
+  city           String?
+  vatNumber      String?
+  billingAddress String?
+  source         String?   // WENJING | SITE | RESEAU | DIRECT
+  notes          String?
+  createdAt      DateTime  @default(now())
+  contacts       Contact[]
+  missions       Mission[]
+}
+
+model Contact {
+  id         String    @id @default(cuid())
+  name       String
+  role       String?
+  email      String?
+  phone      String?
+  wechat     String?
+  lang       String?
+  clientId   String?
+  client     Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  supplierId String?
+  supplier   Supplier? @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
+
+model Mission {
+  id                    String            @id @default(cuid())
+  code                  String            @unique // WC-2026-001
+  title                 String
+  summary               String?           // la demande en une phrase
+  type                  String            @default("EVENEMENT") // SALON | EVENEMENT | CONCIERGERIE | SOURCING | LOGISTIQUE | AUTRE
+  billingModel          String            @default("REFACTURATION") // APPORTEUR | HONORAIRES | REFACTURATION
+  status                String            @default("A_QUALIFIER")
+  urgency               String            @default("NORMALE") // NORMALE | HAUTE | CRITIQUE
+  eventName             String?
+  city                  String?
+  country               String?
+  startDate             DateTime?         // J
+  endDate               DateTime?         // Fin
+  deliveryDate          DateTime?         // L (sourcing)
+  receivedAt            DateTime          @default(now())
+  budgetCeiling         Float?            // INTERNE, jamais transmis au prestataire
+  feeAmount             Float?            // honoraires (modèle HONORAIRES)
+  markupRate            Float             @default(0.25) // coefficient sur coût (modèle REFACTURATION) — 0.25 = taux de marque 20 %
+  commissionRate        Float             @default(0.15) // modèle APPORTEUR
+  partnerRate           Float             @default(0)    // part partenaire sur marge brute
+  lostReason            String?
+  driveFolderUrl        String?
+  nextAction            String?
+  nextActionDate        DateTime?
+  clientId              String?
+  client                Client?           @relation(fields: [clientId], references: [id])
+  relationOwnerId       String?
+  relationOwner         User?             @relation("relationOwner", fields: [relationOwnerId], references: [id])
+  opsOwnerId            String?
+  opsOwner              User?             @relation("opsOwner", fields: [opsOwnerId], references: [id])
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  briefItems            BriefItem[]
+  lots                  Lot[]
+  proposals             Proposal[]
+  tasks                 Task[]
+  ledger                LedgerEntry[]
+  checks                ComplianceCheck[]
+  documents             Document[]
+  activities            Activity[]
+}
+
+model BriefItem {
+  id        String  @id @default(cuid())
+  missionId String
+  mission   Mission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  order     Int
+  category  String
+  question  String
+  answer    String?
+  status    String  @default("A_DEMANDER") // A_DEMANDER | A_CLARIFIER | CONFIRME | SANS_OBJET
+  source    String?
+  note      String? // note Théo : impact prestataire / question à reposer
+}
+
+model Lot {
+  id        String          @id @default(cuid())
+  missionId String
+  mission   Mission         @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  order     Int             @default(0)
+  category  String          // Location d'écrans, Hôtel, Main-d'œuvre…
+  title     String
+  spec      String?         // cahier des charges homogène envoyé aux fournisseurs
+  quantity  Float           @default(1)
+  quotes    SupplierQuote[]
+}
+
+model Supplier {
+  id                     String          @id @default(cuid())
+  code                   String          @unique // SUP-001
+  name                   String
+  legalName              String?
+  country                String?
+  city                   String?
+  categories             String          @default("") // séparées par des virgules
+  website                String?
+  email                  String?
+  phone                  String?
+  insuranceVerified      Boolean         @default(false)
+  nonCircumventionSigned Boolean         @default(false)
+  scoreConformity        Int?
+  scoreReactivity        Int?
+  scorePrice             Int?
+  scoreReliability       Int?
+  status                 String          @default("A_CONTACTER") // A_CONTACTER | ACTIF | REFUS | A_EVITER
+  notes                  String?
+  createdAt              DateTime        @default(now())
+  contacts               Contact[]
+  quotes                 SupplierQuote[]
+  tasks                  Task[]
+}
+
+model SupplierQuote {
+  id           String    @id @default(cuid())
+  lotId        String
+  lot          Lot       @relation(fields: [lotId], references: [id], onDelete: Cascade)
+  supplierId   String
+  supplier     Supplier  @relation(fields: [supplierId], references: [id])
+  status       String    @default("DEMANDE") // DEMANDE | RECU | SANS_REPONSE | REFUS | RETENU
+  requestedAt  DateTime  @default(now())
+  receivedAt   DateTime?
+  amountHT     Float?
+  vatAmount    Float?
+  currency     String    @default("EUR")
+  validUntil   DateTime?
+  includes     String?
+  cancellation String?
+  availability String?
+  conform      Boolean?
+  fileUrl      String?
+  notes        String?
+  selected     Boolean   @default(false)
+  sellPriceHT  Float?    // prix de vente forcé (sinon calculé)
+}
+
+model Proposal {
+  id        String    @id @default(cuid())
+  missionId String
+  mission   Mission   @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  version   Int
+  status    String    @default("BROUILLON") // BROUILLON | ENVOYEE | ACCEPTEE | REFUSEE
+  lang      String    @default("fr")
+  totalHT   Float     @default(0)
+  snapshot  String    // JSON figé des options présentées
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Task {
+  id                 String    @id @default(cuid())
+  missionId          String?
+  mission            Mission?  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  title              String
+  phase              String?
+  stream             String?   // Coordination | Stand | Communication | RDV | Conciergerie | Sourcing
+  assigneeUserId     String?
+  assigneeUser       User?     @relation(fields: [assigneeUserId], references: [id])
+  assigneeSupplierId String?
+  assigneeSupplier   Supplier? @relation(fields: [assigneeSupplierId], references: [id])
+  assigneeLabel      String?   // Client | Prestataire | Windchic
+  dueDate            DateTime?
+  status             String    @default("A_FAIRE") // A_FAIRE | EN_COURS | FAIT | BLOQUE | SANS_OBJET
+  priority           String    @default("MOYENNE")
+  deliverable        String?
+  vigilance          String?
+  createdAt          DateTime  @default(now())
+}
+
+model LedgerEntry {
+  id           String   @id @default(cuid())
+  missionId    String
+  mission      Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  date         DateTime @default(now())
+  type         String   // voir LEDGER_TYPES
+  amount       Float    // toujours positif ; le sens vient du type
+  counterparty String?
+  reference    String?
+  docUrl       String?
+  note         String?
+  simulated    Boolean  @default(false)
+}
+
+model ComplianceCheck {
+  id        String  @id @default(cuid())
+  missionId String
+  mission   Mission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  order     Int     @default(0)
+  label     String
+  owner     String?
+  status    String  @default("A_FAIRE") // A_FAIRE | A_VERIFIER | VALIDE | BLOQUANT | SANS_OBJET
+  proofUrl  String?
+  note      String?
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  type      String   // BRIEF | CONTRAT | MANDAT | DEVIS_FOURNISSEUR | FACTURE | PREUVE_PAIEMENT | AUTRE
+  title     String
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  kind      String   @default("NOTE") // NOTE | EMAIL | APPEL | DECISION | STATUT
+  content   String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,153 @@
+{
+  "clients": [
+    {
+      "key": "c1",
+      "name": "Atelier Lumen (démo)",
+      "country": "Chine",
+      "city": "Shenzhen",
+      "source": "WENJING"
+    },
+    {
+      "key": "c2",
+      "name": "Nordic Pools (démo)",
+      "country": "France",
+      "city": "Lyon",
+      "source": "SITE"
+    }
+  ],
+  "suppliers": [
+    {
+      "key": "s1",
+      "name": "Rent&Screen (démo)",
+      "city": "Barcelone",
+      "country": "Espagne",
+      "categories": [
+        "Location d'écrans",
+        "Audiovisuel et éclairage"
+      ],
+      "email": "contact@example.com",
+      "status": "ACTIF",
+      "scores": [
+        5,
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "key": "s2",
+      "name": "ScreenPro (démo)",
+      "city": "Madrid",
+      "country": "Espagne",
+      "categories": [
+        "Location d'écrans"
+      ],
+      "email": "hello@example.com",
+      "status": "ACTIF",
+      "scores": [
+        4,
+        3,
+        5,
+        4
+      ]
+    },
+    {
+      "key": "s3",
+      "name": "Crew Danse (démo)",
+      "city": "Lyon",
+      "country": "France",
+      "categories": [
+        "Animation"
+      ],
+      "status": "ACTIF"
+    },
+    {
+      "key": "s4",
+      "name": "Hotel Partner DMC (démo)",
+      "city": "Barcelone",
+      "country": "Espagne",
+      "categories": [
+        "Hôtel",
+        "Transport et transferts"
+      ],
+      "email": "dmc@example.com"
+    }
+  ],
+  "missions": [
+    {
+      "title": "Salon démo — 8 écrans tactiles",
+      "client": "c1",
+      "type": "EVENEMENT",
+      "billingModel": "REFACTURATION",
+      "status": "DEVIS_ENVOYE",
+      "startDate": "2027-01-20",
+      "endDate": "2027-01-23",
+      "city": "Paris",
+      "country": "France",
+      "eventName": "Salon démo",
+      "nextAction": "Relancer le client",
+      "nextActionDate": "2026-11-25",
+      "lots": [
+        {
+          "category": "Location d'écrans",
+          "title": "8 écrans tactiles 43\"",
+          "quantity": 8,
+          "quotes": [
+            {
+              "supplier": "s1",
+              "amountHT": 2400,
+              "selected": true,
+              "includes": "Livraison, installation"
+            },
+            {
+              "supplier": "s2",
+              "amountHT": 2150,
+              "includes": "Livraison seule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Délégation démo — 3 personnes",
+      "client": "c1",
+      "type": "CONCIERGERIE",
+      "billingModel": "HONORAIRES",
+      "status": "CHIFFRAGE",
+      "feeAmount": 2500,
+      "startDate": "2027-03-01",
+      "endDate": "2027-03-04",
+      "city": "Barcelone",
+      "country": "Espagne",
+      "lots": [
+        {
+          "category": "Hôtel",
+          "title": "Hôtel 3 × 4 nuits",
+          "quotes": [
+            {
+              "supplier": "s4",
+              "daysAgo": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Animation stand démo",
+      "client": "c2",
+      "type": "EVENEMENT",
+      "billingModel": "REFACTURATION",
+      "status": "A_QUALIFIER",
+      "urgency": "HAUTE",
+      "startDate": "2026-12-02",
+      "city": "Lyon",
+      "country": "France"
+    }
+  ],
+  "internalTasks": [
+    {
+      "title": "Tâche interne démo",
+      "dueDate": "2026-11-25"
+    }
+  ]
+}
