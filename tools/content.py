@@ -657,3 +657,15 @@ S.update({
     "pj.mad.img": ("The Retiro park lake in Madrid", "Le lac du parc du Retiro à Madrid", "马德里丽池公园湖畔"),
 })
 STORIES = [s for s in STORIES if s[4][0] != "Beyond the stand"]
+
+
+S.update({
+    "bd.caption": ("Forum at the China International Big Data Industry Expo, Guiyang, May 2021",
+                   "Forum de la China International Big Data Industry Expo, Guiyang, mai 2021",
+                   "中国国际大数据产业博览会论坛，贵阳，2021 年 5 月"),
+    "bd.alt1": ("Conference room set with round tables during the Big Data Expo forum in Guiyang", "Salle de conférence en tables rondes lors du forum de la Big Data Expo à Guiyang", "贵阳数博会论坛圆桌会场"),
+    "bd.alt2": ("Speaker on stage in front of the forum screens", "Intervenant sur scène devant les écrans du forum", "论坛舞台上的演讲嘉宾"),
+    "bd.alt3": ("Guests following the forum in lounge seating", "Invités suivant le forum depuis les fauteuils", "嘉宾在座席聆听论坛"),
+    "bd.alt4": ("View of the forum hall from the back of the room", "Vue de la salle du forum depuis le fond", "从会场后方看论坛全景"),
+    "kkd.credit": ("Photos: KKD Group and our China partner network", "Photos : KKD Group et notre réseau partenaire en Chine", "图片：东方科德及我们的中国合作网络"),
+})

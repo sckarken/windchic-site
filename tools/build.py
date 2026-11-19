@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.4"
+VERSION = "6.5"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -530,7 +530,13 @@ def page_projects(p):
       <figure class="img-reveal">{picture(p, 'kkd-conference', 'kkd.alt1', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'kkd-waic', 'kkd.alt2', '', '50% 50%')}</figure>
     </div>
-    <p class="small kkd-credit">{p.t('kkd.credit')}</p>
+    <div class="kkd-gallery kkd-gallery-4">
+      <figure class="img-reveal">{picture(p, 'cn-bigdata-room', 'bd.alt1', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-bigdata-stage', 'bd.alt2', '', '45% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-bigdata-audience', 'bd.alt3', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-bigdata-hall', 'bd.alt4', '', '55% 50%')}</figure>
+    </div>
+    <p class="small kkd-credit">{p.t('bd.caption')} · {p.t('kkd.credit')}</p>
   </div>
 </section>
 <section class="section section-sand">
