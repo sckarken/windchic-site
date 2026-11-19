@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.0"
+VERSION = "6.1"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -222,6 +222,7 @@ def footer(p):
       {lang_switch(p, 'lang-footer')}
     </div>
   </div>
+  <a class="footer-word" href="{p.href('index')}" aria-label="WINDCHIC">{''.join(f'<span style="--i:{i}">{c}</span>' for i, c in enumerate('WINDCHIC'))}</a>
 </footer>
 <a class="wa-float" href="{wa_link(p)}" target="_blank" rel="noopener" aria-label="{p.e('wa.label')}" title="{p.e('wa.label')}">{wa_svg}</a>
 </body>
@@ -283,7 +284,7 @@ def page_index(p):
         f'<li class="step-item reveal"><span class="step-num">0{i}</span><h3>{p.t(f"process.s{i}.t")}</h3><p>{p.t(f"process.s{i}.d")}</p></li>'
         for i in range(1, 5))
     stats = "".join(
-        f'<div><strong>{p.t(f"home.case.s{i}")}</strong><span>{p.t(f"home.case.s{i}l")}</span></div>' for i in (1, 2, 3))
+        f'<div><strong data-count="{p.t(f"home.case.s{i}")}">{p.t(f"home.case.s{i}")}</strong><span>{p.t(f"home.case.s{i}l")}</span></div>' for i in (1, 2, 3))
     return f"""
 <section class="hero" aria-roledescription="carousel">
   <div class="hero-slides" data-slides>{slide_html}</div>
@@ -339,7 +340,7 @@ def page_index(p):
 </section>
 
 <section class="feature-case">
-  <div class="feature-media">{picture(p, 'home-segovia', 'home.case.alt', '', '50% 45%')}</div>
+  <div class="feature-media img-reveal">{picture(p, 'segovia-kiosks', 'home.case.alt', '', '45% 50%')}</div>
   <div class="feature-copy reveal">
     <p class="eyebrow">{p.t("home.case.eyebrow")}</p>
     <h2 class="display">{p.t("home.case.title")}</h2>
@@ -377,10 +378,15 @@ def partners_block(p):
         else:
             small = f"<small>{sub}</small>" if sub else ""
             tiles.append(f'<li class="logo-tile logo-word"><span>{html.escape(name)}{small}</span></li>')
-    return f"""<section class="section partners">
-  <div class="wrap">
-    <div class="partners-head reveal"><p class="eyebrow">{p.t("partners.eyebrow")}</p><p>{p.t("partners.lead")}</p></div>
-    <ul class="logo-wall">{''.join(tiles)}</ul>
+    row = ''.join(tiles)
+    dup = row.replace('<img ', '<img aria-hidden="true" ').replace('alt="', 'data-alt="')
+    return f"""<section class="partners">
+  <div class="wrap partners-head reveal"><p class="eyebrow">{p.t("partners.eyebrow")}</p><p>{p.t("partners.lead")}</p></div>
+  <div class="marquee" aria-label="{p.e('partners.eyebrow')}">
+    <div class="marquee-track">
+      <ul class="logo-row">{row}</ul>
+      <ul class="logo-row" aria-hidden="true">{dup.replace('data-alt="', 'alt="" data-alt="')}</ul>
+    </div>
   </div>
 </section>"""
 
@@ -390,7 +396,7 @@ def page_services(p):
     for i, (sid, k, image) in enumerate(SERVICES, 1):
         items = "".join(f"<li>{x}</li>" for x in p.lst(k + ".l"))
         blocks.append(f"""<section class="svc-block{' is-alt' if i % 2 == 0 else ''}" id="{sid}">
-  <div class="svc-media">{picture(p, image, k + '.t', '')}</div>
+  <div class="svc-media img-reveal">{picture(p, image, k + '.t', '')}</div>
   <div class="svc-copy reveal">
     <p class="eyebrow">{p.t('services.core') if i <= len(CORE) else p.t('services.event')} · {i:02d} / {len(SERVICES)}</p>
     <h2 class="display">{p.t(k + '.t')}</h2>
@@ -424,7 +430,7 @@ def page_projects(p):
                 ("barcelona", "pj.bcn", "proj-barcelona", "status.prep", "50% 60%"),
                 ("paris", "pj.par", "proj-paris-sales", "status.team", "35% 40%")]
     cards = "".join(f"""<article class="proj-card reveal" id="{pid}">
-  <div class="proj-media">{picture(p, img, k + '.t', '', pos)}<span class="badge">{p.t(st)}</span></div>
+  <div class="proj-media img-reveal">{picture(p, img, k + '.t', '', pos)}<span class="badge">{p.t(st)}</span></div>
   <p class="proj-loc">{p.t(k + '.loc')}</p>
   <h3>{p.t(k + '.t')}</h3>
   <p class="proj-story">{p.t(k + '.d')}</p>
@@ -442,9 +448,8 @@ def page_projects(p):
       <p class="lead">{p.t('case.sub')}</p>
     </div>
     <div class="case-gallery">
-      <figure class="g-main">{picture(p, 'segovia-kiosks', 'case.alt1', '', '50% 50%')}</figure>
-      <figure>{picture(p, 'segovia-detail', 'case.alt2', '', '60% 45%')}</figure>
-      <figure>{picture(p, 'segovia-room', 'case.alt3', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'segovia-room', 'case.alt3', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'segovia-detail', 'case.alt2', '', '60% 45%')}</figure>
     </div>
     <div class="case-cols">
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('case.challenge.d')}</p></div>
@@ -480,7 +485,7 @@ def page_about(p):
   </div>
 </section>
 <section class="founders">
-  <div class="founders-media">{picture(p, 'founders', 'about.founders.alt', '', '50% 22%')}</div>
+  <div class="founders-media img-reveal">{picture(p, 'founders', 'about.founders.alt', '', '50% 22%')}</div>
   <div class="founders-copy reveal">
     <p class="eyebrow">{p.t('about.founders.eyebrow')}</p>
     <h2 class="display">{p.t('about.founders.title')}</h2>
@@ -502,7 +507,7 @@ def page_journal(p):
     arts = [("a2", "blog-delegations", "a.alt2"), ("a1", "blog-brief", "a.alt1"),
             ("a3", "blog-backstage", "a.alt3"), ("a4", "blog-catering", "a.alt4")]
     cards = "".join(f"""<article class="article reveal">
-  <div class="article-media">{picture(p, img, alt, '')}</div>
+  <div class="article-media img-reveal">{picture(p, img, alt, '')}</div>
   <p class="eyebrow">{p.t(a + '.tag')}</p>
   <h2>{p.t(a + '.t')}</h2>
   <p class="article-excerpt">{p.t(a + '.x')}</p>
