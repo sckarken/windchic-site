@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.1"
+VERSION = "6.2"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -56,6 +56,7 @@ PARTNERS = [  # name, logo file or None (wordmark), subtitle
     ("VFormations", "vformations.webp", None),
     ("Serrurerie Vidal", "serrurerie-vidal.svg", None),
     ("Caffè Panis", "caffe-panis.webp", None),
+    ("Glamcamp", "glamcamp.webp", None),
     ("Da Squad", "dasquad.webp", None),
     ("Lefrère Traiteur", "lefrere-traiteur.webp", None),
     ("BB", "bb.webp", None),
@@ -455,6 +456,25 @@ def page_projects(p):
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('case.challenge.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t('case.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t('case.result.d')}</p></div>
+    </div>
+  </div>
+</section>
+<section class="section case case-alt" id="glamcamp">
+  <div class="wrap">
+    <div class="case-head reveal">
+      <p class="eyebrow">{p.t('gc.eyebrow')} · <span class="badge badge-inline">{p.t('status.delivered')}</span></p>
+      <h2 class="display">{p.t('gc.title')}</h2>
+      <p class="lead">{p.t('gc.sub')}</p>
+    </div>
+    <div class="case-gallery case-gallery-3">
+      <figure class="img-reveal g-main">{picture(p, 'glamcamp-team', 'gc.alt1', '', '62% 40%')}</figure>
+      <figure class="img-reveal">{picture(p, 'glamcamp-tent-front', 'gc.alt2', '', '50% 60%')}</figure>
+      <figure class="img-reveal">{picture(p, 'glamcamp-tent-side', 'gc.alt3', '', '50% 60%')}</figure>
+    </div>
+    <div class="case-cols">
+      <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('gc.challenge.d')}</p></div>
+      <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t('gc.approach.d')}</p></div>
+      <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t('gc.result.d')}</p></div>
     </div>
   </div>
 </section>

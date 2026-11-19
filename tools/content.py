@@ -580,3 +580,25 @@ STORIES = [
       "Deux grands salons parisiens, deux publics d'exposants internationaux qui auront besoin de stands, de personnel, de matériel et de rendez-vous. Nous préparons des programmes d'accompagnement dédiés et des réseaux de partenaires en vue des prochaines éditions.",
       "巴黎两大展会，两批国际参展商，都需要展台、人员、设备与会谈安排。我们正为下一届提前筹备专项服务与合作网络。")),
 ]
+
+
+S.update({
+    "gc.eyebrow": ("Case study · Trade show", "Étude de cas · Salon", "案例分析 · 展会"),
+    "gc.title": ("Glamcamp · Outdoor hospitality show, France", "Glamcamp · Salon de l'hôtellerie de plein air, France", "Glamcamp · 法国户外酒店展"),
+    "gc.sub": ("On the stand with a glamping-tent manufacturer, face to face with European buyers.",
+               "Sur le stand d'un fabricant de tentes glamping, face aux acheteurs européens.",
+               "与豪华露营帐篷制造商并肩站台，直面欧洲买家。"),
+    "gc.challenge.d": ("Glamcamp builds safari and glamping tents — timber frames, canvas roofs, raised decks — for campsites and eco-resorts. Exhibiting in France meant convincing campsite owners and distributors who expect to be addressed in French, with answers on comfort, durability and installation.",
+                       "Glamcamp fabrique des tentes safari et glamping — structures bois, toiles, terrasses surélevées — pour campings et éco-resorts. Exposer en France, c'était convaincre des exploitants de campings et des distributeurs qui attendent qu'on leur parle en français, avec des réponses précises sur le confort, la durabilité et l'installation.",
+                       "Glamcamp 生产狩猎式与豪华露营帐篷——木结构、帆布顶、架高平台——面向露营地与生态度假村。在法国参展，意味着要说服期待用法语沟通、并关心舒适度、耐用性与安装细节的营地业主和经销商。"),
+    "gc.approach.d": ("Our team joined the stand for the show: welcoming visitors in the aisles, walking them through the tent models and brochures, translating technical questions for the manufacturer's team and noting each buyer's project, capacity and timing.",
+                      "Notre équipe a rejoint le stand pendant le salon : accueillir les visiteurs dans les allées, leur présenter les modèles et les brochures, traduire les questions techniques pour l'équipe du fabricant et noter, pour chaque acheteur, son projet, sa capacité et son calendrier.",
+                      "展会期间，我们的团队加入展台：在过道迎接访客，讲解帐篷型号与资料，为制造商团队翻译技术问题，并记录每位买家的项目、规模与时间安排。"),
+    "gc.result.d": ("A stand that spoke the visitors' language, and a structured list of qualified contacts handed to Glamcamp after the show so its team could follow up with the right people.",
+                    "Un stand qui parlait la langue des visiteurs, et une liste structurée de contacts qualifiés remise à Glamcamp après le salon pour que son équipe relance les bonnes personnes.",
+                    "一个用访客语言沟通的展台，以及展后交给 Glamcamp 的结构化优质客户名单，便于其团队精准跟进。"),
+    "gc.alt1": ("The WINDCHIC co-founders presenting tent brochures on the Glamcamp stand", "Les cofondateurs de WINDCHIC présentant les brochures sur le stand Glamcamp", "WINDCHIC 联合创始人在 Glamcamp 展台介绍帐篷资料"),
+    "gc.alt2": ("Glamcamp safari tent with wooden deck, front view", "Tente safari Glamcamp avec terrasse en bois, vue de face", "带木平台的 Glamcamp 狩猎帐篷正面"),
+    "gc.alt3": ("Glamcamp striped glamping tent on a raised wooden platform", "Tente glamping rayée Glamcamp sur plateforme en bois", "架高木平台上的 Glamcamp 条纹豪华帐篷"),
+})
+STORIES = [s for s in STORIES if s[4][0] != "Selling outdoors, in French"]
