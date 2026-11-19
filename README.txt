@@ -1,21 +1,28 @@
-WINDCHIC — Website V5 (16 November 2026)
+WINDCHIC — website v6 (November 2026)
 
-Open index.html in a browser. All six pages live in this folder and navigation works without a server.
-Pages: index.html, about.html, services.html, projects.html, blog.html, contact.html.
-Style: style.css; interactions: script.js; local assets: assets/.
-For a single-file interactive offline preview, use WINDCHIC_V5_preview.html supplied separately.
+STRUCTURE
+- Static site for GitHub Pages (CNAME windchic.com, .nojekyll kept).
+- English at the root, French in /fr/, Chinese in /zh/ — real pages, no client-side translation.
+- All copy lives in tools/content.py (one entry = English, French, Chinese).
+- Page templates live in tools/build.py. Never edit the generated .html files by hand.
 
-CONTENT STATUS
-- All 15 project files distinguish Delivered, Project file, Team experience, In preparation, and Capability.
-- Validate client names, image rights, brand logo usage and final project statuses before public launch.
-- No fictional testimonials or verified claims of 15 completed assignments are included.
-- Logo variants on About are design explorations, not finalized intellectual property.
+BUILD
+  python3 tools/build.py        # regenerates 18 pages + 404.html + sitemap.xml
+  python3 -m http.server 8765   # preview at http://localhost:8765
 
-CONTACT
-- WhatsApp links open a WhatsApp chat at +33 7 82 65 40 82.
-- WeChat QR image is user-provided, with copyable WeChat ID Contact-Windchic.
-- Phone and email use tel: and mailto:.
-- The guided project form currently PREPARES an email (mailto) and copyable brief; it does NOT submit to a backend. Connect a form service / backend with spam protection and a privacy notice before publishing to send email automatically.
+ASSETS
+- assets/css/site.css   single stylesheet (design tokens at the top)
+- assets/js/site.js     menu, hero carousel, language memory, contact form
+- assets/img/           one file per photo, each used once on the site
+- assets/logos/         partner logos + WINDCHIC logo
 
-PHOTO NOTE
-- Some supplied/high-resolution-export visuals have 3840px dimensions but are not confirmed native 4K captures. Replace with properly licensed source-resolution assets before publishing if native 4K is required.
+PHOTO CREDITS
+- Segovia photos: WINDCHIC / DJI Enterprise event, 17 Nov 2026 (user-provided).
+- svc-*, hero-celebration, services-hero, projects-hero, blog-*, contact-hero,
+  reasons-bg, proj-montpellier: Unsplash (Unsplash License, free commercial use).
+- City photos, founders, trade-show photos: previously supplied by WINDCHIC.
+
+TO VALIDATE BEFORE LAUNCH
+- Permission to name DJI Enterprise and show its branding in the Segovia case.
+- Partner logos (SB Service, VFormations, Serrurerie Vidal, Caffè Panis, Da Squad).
+- Contact form prepares an email (mailto); connect a form service for automatic sending.
