@@ -617,3 +617,43 @@ S.update({
     "kkd.alt2": ("Main hall of the 2025 World Artificial Intelligence Conference in Shanghai", "Salle principale de la World Artificial Intelligence Conference 2025 à Shanghai", "2025 世界人工智能大会主会场"),
     "kkd.credit": ("Photos: KKD Group", "Photos : KKD Group", "图片：东方科德"),
 })
+
+
+S.update({
+    "mtp.eyebrow": ("Case study · Operations", "Étude de cas · Opérations", "案例分析 · 现场执行"),
+    "mtp.title": ("Two containers, ten people, four days · Montpellier", "Deux conteneurs, dix personnes, quatre jours · Montpellier", "两个集装箱、十个人、四天 · 蒙彼利埃"),
+    "mtp.sub": ("Office furniture shipped from China, unloaded and installed in a new building.", "Du mobilier de bureau venu de Chine, déchargé et installé dans un immeuble neuf.", "来自中国的办公家具，在新落成的大楼卸货并安装到位。"),
+    "mtp.challenge.d": ("Two 40-foot containers of office furniture arrived from China at a brand-new building in Montpellier: task chairs, meeting chairs, desks, cable trays, hundreds of boxes. Everything had to be unloaded in the street, carried up several floors, sorted room by room and assembled in four days, without blocking the site.",
+                        "Deux conteneurs de 40 pieds de mobilier de bureau arrivent de Chine devant un immeuble neuf à Montpellier : fauteuils de travail, chaises de réunion, bureaux, goulottes, des centaines de cartons. Tout devait être déchargé dans la rue, monté sur plusieurs étages, trié pièce par pièce et assemblé en quatre jours, sans bloquer le chantier.",
+                        "两个 40 英尺集装箱的办公家具从中国运抵蒙彼利埃一栋新楼：办公椅、会议椅、办公桌、线槽，数百个纸箱。所有物品需在街边卸货、搬上多个楼层、逐间分拣，并在四天内组装完毕，同时不能影响工地运作。"),
+    "mtp.approach.d": ("We recruited and briefed a team of ten handlers, planned the unloading slots with the truck, set up a floor-by-floor flow using the item codes on each box, then organised assembly room by room. The client received a progress update every evening.",
+                       "Nous avons recruté et briefé une équipe de dix manutentionnaires, calé les créneaux de déchargement avec le camion, organisé un flux étage par étage grâce aux références de chaque carton, puis l'assemblage pièce par pièce. Le client recevait un point d'avancement chaque soir.",
+                       "我们招募并培训了十名搬运人员，与货车协调卸货时段，依据每箱编码规划逐层流转，再逐间组织组装。每天晚上向客户汇报进度。"),
+    "mtp.result.d": ("Containers emptied, every box delivered to the right room and the offices furnished on day four, as planned.",
+                     "Conteneurs vidés, chaque carton livré dans la bonne pièce et bureaux meublés le quatrième jour, comme prévu.",
+                     "集装箱清空，每个纸箱送达对应房间，第四天办公室如期布置完毕。"),
+    "mtp.alt1": ("Shipping container arriving in front of the building in Montpellier", "Conteneur arrivant devant l'immeuble à Montpellier", "集装箱运抵蒙彼利埃大楼前"),
+    "mtp.alt2": ("Handlers unloading furniture boxes inside the container", "Manutentionnaires déchargeant les cartons dans le conteneur", "搬运人员在集装箱内卸货"),
+    "mtp.alt3": ("Boxes of office chairs stacked before assembly", "Cartons de fauteuils de bureau empilés avant montage", "待组装的办公椅纸箱"),
+    "mtp.alt4": ("Furniture boxes delivered to an office room", "Cartons livrés dans un bureau", "已送达办公室的家具纸箱"),
+
+    "dl.eyebrow": ("Case study · Business delegation", "Étude de cas · Délégation d'affaires", "案例分析 · 商务代表团"),
+    "dl.title": ("A Chinese delegation meets French retail", "Une délégation chinoise à la rencontre de la distribution française", "中国代表团对接法国零售业"),
+    "dl.sub": ("Company visits and meetings between Paris and Bordeaux.", "Visites d'entreprises et rendez-vous entre Paris et Bordeaux.", "巴黎至波尔多的企业参观与商务会谈。"),
+    "dl.challenge.d": ("A group of Chinese business owners wanted to understand how French retail and food distribution really work, and to meet the people who buy, not just see a trade-show aisle.",
+                       "Un groupe d'entrepreneurs chinois voulait comprendre comment fonctionnent vraiment la grande distribution et la distribution alimentaire en France, et rencontrer ceux qui achètent, pas seulement voir une allée de salon.",
+                       "一批中国企业家希望真正了解法国零售与食品分销的运作方式，并见到真正的采购决策者，而不只是逛展会。"),
+    "dl.approach.d": ("We built the programme, arranged the company visits, including Carrefour's headquarters and the distributor Centrale Food, organised meetings in Bordeaux, and handled transport and interpretation from start to finish.",
+                      "Nous avons construit le programme, organisé les visites d'entreprises, dont le siège de Carrefour et le distributeur Centrale Food, les rendez-vous à Bordeaux, ainsi que les transports et l'interprétariat du début à la fin.",
+                      "我们制定行程，安排企业参观（包括家乐福总部与分销商 Centrale Food）、波尔多的商务会谈，并全程负责交通与翻译。"),
+    "dl.result.d": ("Face-to-face discussions with decision-makers and a clear view of the French market for each participant.",
+                    "Des échanges en direct avec les décideurs et une vision claire du marché français pour chaque participant.",
+                    "与决策者面对面交流，每位成员都对法国市场有了清晰认识。"),
+    "dl.alt1": ("The delegation in front of Carrefour headquarters", "La délégation devant le siège de Carrefour", "代表团在家乐福总部前合影"),
+    "dl.alt2": ("The delegation with the Centrale Food team", "La délégation avec l'équipe de Centrale Food", "代表团与 Centrale Food 团队合影"),
+    "dl.alt3": ("Meeting with local partners in Bordeaux", "Rendez-vous avec des partenaires à Bordeaux", "在波尔多与当地合作伙伴会面"),
+    "dl.alt4": ("Working session around a meeting table", "Séance de travail autour d'une table de réunion", "会议桌旁的工作会谈"),
+    "case.alt4": ("Segovia rooftops under a stormy sky", "Les toits de Ségovie sous un ciel d'orage", "风雨欲来时的塞哥维亚屋顶"),
+    "pj.mad.img": ("The Retiro park lake in Madrid", "Le lac du parc du Retiro à Madrid", "马德里丽池公园湖畔"),
+})
+STORIES = [s for s in STORIES if s[4][0] != "Beyond the stand"]

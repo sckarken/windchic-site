@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.3"
+VERSION = "6.4"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -111,6 +111,18 @@ def picture(p, name, alt_key, cls="", pos=None, eager=False, sizes=None):
 
 # ── Layout pieces ───────────────────────────────────────────────────────
 
+def strip_dashes(doc, lang):
+    """House style: no em dashes. Page titles get a middle dot, prose a plain space
+    (a Chinese comma in Chinese, where clauses are not separated by spaces)."""
+    import re
+    doc = re.sub(r"(<title>[^<]*?) — ", r"\1 · ", doc)
+    doc = re.sub(r'(content="[^"]*?) — (WINDCHIC)', r"\1 · \2", doc)
+    doc = re.sub(r'(<meta property="og:title" content="[^"]*?) — ', r"\1 · ", doc)
+    if lang == "zh":
+        doc = doc.replace("——", "，")
+    return doc.replace(" — ", " ").replace("—", " ")
+
+
 def head(p, title_key, desc_key):
     alts = "".join(
         f'<link rel="alternate" hreflang="{"zh-Hans" if l == "zh" else l}" href="{p.url(p.slug, l)}">'
@@ -168,7 +180,7 @@ def header(p, overlay=True):
 <a class="skip" href="#main">{p.t("nav.skip")}</a>
 <header class="site-header{' is-overlay' if overlay else ''}" data-header>
   <div class="header-inner">
-    <a class="brand" href="{p.href('index')}" aria-label="WINDCHIC — {p.e('nav.home')}">
+    <a class="brand" href="{p.href('index')}" aria-label="WINDCHIC · {p.e('nav.home')}">
       <img src="{p.pre}assets/logos/windchic-white.png" alt="WINDCHIC" width="164" height="48">
     </a>
     <nav class="main-nav" aria-label="Main">{links}</nav>
@@ -425,10 +437,32 @@ def page_services(p):
 {cta_band(p)}"""
 
 
+def case_block(p, cid, prefix, status, images, layout):
+    """Case study section: header, photo gallery, challenge / approach / result."""
+    figs = "".join(
+        f'<figure class="img-reveal{" g-main" if i == 0 and layout == "feature" else ""}">{picture(p, img, alt, "", pos)}</figure>'
+        for i, (img, alt, pos) in enumerate(images))
+    return f"""<section class="section case case-alt" id="{cid}">
+  <div class="wrap">
+    <div class="case-head reveal">
+      <p class="eyebrow">{p.t(prefix + '.eyebrow')} · <span class="badge badge-inline">{p.t(status)}</span></p>
+      <h2 class="display">{p.t(prefix + '.title')}</h2>
+      <p class="lead">{p.t(prefix + '.sub')}</p>
+    </div>
+    <div class="case-gallery gallery-{layout}">{figs}</div>
+    <div class="case-cols">
+      <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t(prefix + '.challenge.d')}</p></div>
+      <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t(prefix + '.approach.d')}</p></div>
+      <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t(prefix + '.result.d')}</p></div>
+    </div>
+  </div>
+</section>
+"""
+
+
 def page_projects(p):
     projects = [("lyon", "pj.lyon", "proj-lyon", "status.progress", "50% 40%"),
-                ("montpellier", "pj.mtp", "proj-montpellier", "status.delivered", "50% 55%"),
-                ("madrid", "pj.mad", "proj-madrid", "status.prep", "50% 50%"),
+                ("madrid", "pj.mad", "proj-madrid", "status.prep", "60% 50%"),
                 ("barcelona", "pj.bcn", "proj-barcelona", "status.prep", "50% 60%"),
                 ("paris", "pj.par", "proj-paris-sales", "status.team", "35% 40%")]
     cards = "".join(f"""<article class="proj-card reveal" id="{pid}">
@@ -449,9 +483,10 @@ def page_projects(p):
       <h2 class="display">{p.t('case.title')}</h2>
       <p class="lead">{p.t('case.sub')}</p>
     </div>
-    <div class="case-gallery">
-      <figure class="img-reveal">{picture(p, 'segovia-room', 'case.alt3', '', '50% 50%')}</figure>
+    <div class="case-gallery gallery-feature">
+      <figure class="img-reveal g-main">{picture(p, 'segovia-room', 'case.alt3', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'segovia-detail', 'case.alt2', '', '60% 45%')}</figure>
+      <figure class="img-reveal">{picture(p, 'segovia-city', 'case.alt4', '', '45% 65%')}</figure>
     </div>
     <div class="case-cols">
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('case.challenge.d')}</p></div>
@@ -467,7 +502,7 @@ def page_projects(p):
       <h2 class="display">{p.t('gc.title')}</h2>
       <p class="lead">{p.t('gc.sub')}</p>
     </div>
-    <div class="case-gallery case-gallery-3">
+    <div class="case-gallery gallery-feature">
       <figure class="img-reveal g-main">{picture(p, 'glamcamp-team', 'gc.alt1', '', '62% 40%')}</figure>
       <figure class="img-reveal">{picture(p, 'glamcamp-tent-front', 'gc.alt2', '', '50% 60%')}</figure>
       <figure class="img-reveal">{picture(p, 'glamcamp-tent-side', 'gc.alt3', '', '50% 60%')}</figure>
@@ -479,6 +514,12 @@ def page_projects(p):
     </div>
   </div>
 </section>
+{case_block(p, 'montpellier', 'mtp', 'status.delivered', [
+    ('mtp-truck', 'mtp.alt1', '50% 60%'), ('mtp-unloading', 'mtp.alt2', '50% 55%'),
+    ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad')}
+{case_block(p, 'delegation', 'dl', 'status.team', [
+    ('deleg-carrefour', 'dl.alt1', '50% 60%'), ('deleg-centrale-food', 'dl.alt2', '50% 55%'),
+    ('deleg-bordeaux', 'dl.alt3', '50% 55%'), ('deleg-meeting', 'dl.alt4', '50% 50%')], 'grid')}
 <section class="section kkd" id="kkd">
   <div class="wrap">
     <div class="split">
@@ -672,6 +713,7 @@ def build():
             doc = head(p, tk, dk) + header(p, overlay) + body + footer(p)
             if slug == "index":
                 doc = doc.replace("</head>", org_jsonld() + "\n</head>", 1)
+            doc = strip_dashes(doc, lang)
             path = os.path.join(outdir, "index.html" if slug == "index" else f"{slug}.html")
             with open(path, "w", encoding="utf-8") as f:
                 f.write(doc)
@@ -681,6 +723,7 @@ def build():
     p.pre = "/"
     doc = head(p, "nf.title", "home.desc").replace(f'<link rel="canonical" href="{p.url("404")}">', "")
     doc += header(p, False) + page_404(p) + footer(p)
+    doc = strip_dashes(doc, "en")
     with open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8") as f:
         f.write(doc.replace('<meta name="description"', '<meta name="robots" content="noindex"><meta name="description"', 1))
     # sitemap
