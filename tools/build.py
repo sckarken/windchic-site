@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.2"
+VERSION = "6.3"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -61,7 +61,8 @@ PARTNERS = [  # name, logo file or None (wordmark), subtitle
     ("Lefrère Traiteur", "lefrere-traiteur.webp", None),
     ("BB", "bb.webp", None),
     ("Wingstar", None, "GROUP"),
-    ("LPF", None, "TRADING"),
+    ("LPF", "lpf.webp", None),
+    ("KKD Group", "kkd.webp", None),
     ("Aiper", None, None),
     ("Trend Tents", None, None),
 ]
@@ -476,6 +477,19 @@ def page_projects(p):
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t('gc.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t('gc.result.d')}</p></div>
     </div>
+  </div>
+</section>
+<section class="section kkd" id="kkd">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal"><p class="eyebrow">{p.t('kkd.eyebrow')}</p><h2 class="display">{p.t('kkd.title')}</h2></div>
+      <div class="reveal"><p class="lead">{p.t('kkd.lead')}</p><p class="kkd-why">{p.t('kkd.why')}</p></div>
+    </div>
+    <div class="kkd-gallery">
+      <figure class="img-reveal">{picture(p, 'kkd-conference', 'kkd.alt1', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'kkd-waic', 'kkd.alt2', '', '50% 50%')}</figure>
+    </div>
+    <p class="small kkd-credit">{p.t('kkd.credit')}</p>
   </div>
 </section>
 <section class="section section-sand">

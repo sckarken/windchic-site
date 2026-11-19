@@ -602,3 +602,18 @@ S.update({
     "gc.alt3": ("Glamcamp striped glamping tent on a raised wooden platform", "Tente glamping rayée Glamcamp sur plateforme en bois", "架高木平台上的 Glamcamp 条纹豪华帐篷"),
 })
 STORIES = [s for s in STORIES if s[4][0] != "Selling outdoors, in French"]
+
+
+S.update({
+    "kkd.eyebrow": ("Our partner in China", "Notre partenaire en Chine", "我们的中国合作伙伴"),
+    "kkd.title": ("KKD Group · <em>18 years of events in China.</em>", "KKD Group · <em>18 ans d'événements en Chine.</em>", "东方科德 KKD · <em>深耕中国活动 18 年。</em>"),
+    "kkd.lead": ("Brand consultancy and full-scale event design based in Guangdong. Its 2025 portfolio includes sessions at the World Artificial Intelligence Conference in Shanghai and large investment-promotion conferences across China.",
+                 "Agence de conseil en marque et de conception d'événements basée au Guangdong. Son portfolio 2025 comprend des sessions de la World Artificial Intelligence Conference à Shanghai et de grandes conférences de promotion des investissements à travers la Chine.",
+                 "总部位于广东的品牌咨询与全案活动设计机构。其 2025 年作品包括上海世界人工智能大会相关会议，以及全国多地大型投资推介会。"),
+    "kkd.why": ("Together, a request can start in China and be delivered in Europe with the same standard on both sides.",
+                "Ensemble, une demande peut naître en Chine et se concrétiser en Europe, avec la même exigence des deux côtés.",
+                "携手合作，需求可以在中国发起，在欧洲落地，两端标准如一。"),
+    "kkd.alt1": ("Conference hall prepared for a Guangdong–Shaanxi trade cooperation forum, 2025", "Salle préparée pour un forum de coopération commerciale Guangdong–Shaanxi, 2025", "2025 广东-陕西经贸合作交流会会场"),
+    "kkd.alt2": ("Main hall of the 2025 World Artificial Intelligence Conference in Shanghai", "Salle principale de la World Artificial Intelligence Conference 2025 à Shanghai", "2025 世界人工智能大会主会场"),
+    "kkd.credit": ("Photos: KKD Group", "Photos : KKD Group", "图片：东方科德"),
+})
