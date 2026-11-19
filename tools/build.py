@@ -14,7 +14,7 @@ import sys
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(__file__))
-from content import LANGS, S, t as _t  # noqa: E402
+from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
@@ -33,7 +33,13 @@ PAGES = [  # slug, nav key
     ("contact", "nav.contact"),
 ]
 
-SERVICES = [  # id, key prefix, image
+CORE = [  # id, key prefix, image — WINDCHIC's original four practices
+    ("exhibitions", "svc.expo", "svc-exhibitions"),
+    ("equipment", "svc.equip", "svc-equipment"),
+    ("concierge", "svc.deleg", "svc-concierge"),
+    ("sourcing", "svc.source", "svc-sourcing"),
+]
+EVENT = [
     ("staff", "svc.staff", "svc-staff"),
     ("design", "svc.design", "svc-design"),
     ("catering", "svc.catering", "svc-catering"),
@@ -42,9 +48,8 @@ SERVICES = [  # id, key prefix, image
     ("entertainment", "svc.ent", "svc-entertainment"),
     ("artistic", "svc.art", "svc-artistic"),
     ("audiovisual", "svc.av", "svc-audiovisual"),
-    ("exhibitions", "svc.expo", "svc-exhibitions"),
-    ("delegations", "svc.deleg", "svc-concierge"),
 ]
+SERVICES = CORE + EVENT
 
 PARTNERS = [  # name, logo file or None (wordmark), subtitle
     ("SB Service", "sbservice.webp", None),
@@ -52,6 +57,8 @@ PARTNERS = [  # name, logo file or None (wordmark), subtitle
     ("Serrurerie Vidal", "serrurerie-vidal.svg", None),
     ("Caffè Panis", "caffe-panis.webp", None),
     ("Da Squad", "dasquad.webp", None),
+    ("Lefrère Traiteur", "lefrere-traiteur.webp", None),
+    ("BB", "bb.webp", None),
     ("Wingstar", None, "GROUP"),
     ("LPF", None, "TRADING"),
     ("Aiper", None, None),
@@ -261,10 +268,14 @@ def page_index(p):
     pillars = "".join(
         f'<article class="pillar reveal"><span class="pillar-num">0{i}</span><h3>{p.t(f"home.p{i}.t")}</h3><p>{p.t(f"home.p{i}.d")}</p></article>'
         for i in (1, 2, 3))
+    core_rows = "".join(
+        f'<a class="core-row reveal" href="{p.href("services")}#{sid}"><span class="svc-num">{i:02d}</span>'
+        f'<h3>{p.t(k + ".t")}</h3><p>{p.t(k + ".s")}</p><span class="core-arrow" aria-hidden="true">↗</span></a>'
+        for i, (sid, k, _) in enumerate(CORE, 1))
     svc_cards = "".join(
         f'<a class="svc-card reveal" href="{p.href("services")}#{sid}"><span class="svc-num">{i:02d}</span>'
         f'<h3>{p.t(k + ".t")}</h3><p>{p.t(k + ".s")}</p><span class="svc-arrow" aria-hidden="true">→</span></a>'
-        for i, (sid, k, _) in enumerate(SERVICES, 1))
+        for i, (sid, k, _) in enumerate(EVENT, 1))
     reasons = "".join(
         f'<li class="reason reveal"><span class="reason-num">{i}</span><div><h3>{p.t(f"reasons.r{i}.t")}</h3><p>{p.t(f"reasons.r{i}.d")}</p></div></li>'
         for i in range(1, 6))
@@ -304,6 +315,16 @@ def page_index(p):
       <p class="lead reveal">{p.t("home.bridge.lead")}</p>
     </div>
     <div class="pillars">{pillars}</div>
+  </div>
+</section>
+
+<section class="section core">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">{p.t("core.eyebrow")}</p><h2 class="display">{p.t("core.title")}</h2></div>
+      <a class="link-arrow" href="{p.href('services')}">{p.t("home.services.all")} <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="core-rows">{core_rows}</div>
   </div>
 </section>
 
@@ -371,7 +392,7 @@ def page_services(p):
         blocks.append(f"""<section class="svc-block{' is-alt' if i % 2 == 0 else ''}" id="{sid}">
   <div class="svc-media">{picture(p, image, k + '.t', '')}</div>
   <div class="svc-copy reveal">
-    <p class="eyebrow">{i:02d} / {len(SERVICES)}</p>
+    <p class="eyebrow">{p.t('services.core') if i <= len(CORE) else p.t('services.event')} · {i:02d} / {len(SERVICES)}</p>
     <h2 class="display">{p.t(k + '.t')}</h2>
     <p class="svc-lede">{p.t(k + '.s')}</p>
     <p>{p.t(k + '.d')}</p>
@@ -406,9 +427,12 @@ def page_projects(p):
   <div class="proj-media">{picture(p, img, k + '.t', '', pos)}<span class="badge">{p.t(st)}</span></div>
   <p class="proj-loc">{p.t(k + '.loc')}</p>
   <h3>{p.t(k + '.t')}</h3>
-  <details><summary>{p.t('projects.details')}</summary><p>{p.t(k + '.d')}</p></details>
+  <p class="proj-story">{p.t(k + '.d')}</p>
 </article>""" for pid, k, img, st, pos in projects)
-    exp = "".join(f"<li>{x}</li>" for x in p.lst("projects.exp.l"))
+    li = LANGS.index(p.lang)
+    stories = "".join(
+        f'<article class="story reveal"><p class="story-meta"><span>{st[1 + li]}</span><span class="badge badge-inline">{p.t(st[0])}</span></p>'
+        f'<h3>{st[4][li]}</h3><p>{st[5][li]}</p></article>' for st in STORIES)
     return f"""{subhero(p, 'projects.hero', 'projects-hero', '50% 40%')}
 <section class="section case" id="segovia">
   <div class="wrap">
@@ -436,10 +460,9 @@ def page_projects(p):
   </div>
 </section>
 <section class="section">
-  <div class="wrap narrow reveal">
-    <p class="eyebrow">{p.t('projects.exp.eyebrow')}</p>
-    <p class="lead">{p.t('projects.exp.lead')}</p>
-    <ul class="checks checks-lg">{exp}</ul>
+  <div class="wrap">
+    <div class="section-head reveal"><div><p class="eyebrow">{p.t('projects.exp.eyebrow')}</p><h2 class="display">{p.t('projects.exp.title')}</h2></div></div>
+    <div class="story-grid">{stories}</div>
   </div>
 </section>
 {cta_band(p)}"""
