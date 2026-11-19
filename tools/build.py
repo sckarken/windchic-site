@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.5"
+VERSION = "6.6"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -536,7 +536,16 @@ def page_projects(p):
       <figure class="img-reveal">{picture(p, 'cn-bigdata-audience', 'bd.alt3', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-bigdata-hall', 'bd.alt4', '', '55% 50%')}</figure>
     </div>
-    <p class="small kkd-credit">{p.t('bd.caption')} · {p.t('kkd.credit')}</p>
+    <p class="small kkd-credit">{p.t('bd.caption')}</p>
+    <div class="kkd-gallery kkd-gallery-6">
+      <figure class="img-reveal">{picture(p, 'cn-sichuan-night', 'sc.alt1', '', '50% 50%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-sichuan-opera', 'sc.alt2', '', '55% 35%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-sanxingdui-press', 'sc.alt3', '', '50% 60%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-sanxingdui-hall', 'sc.alt4', '', '50% 55%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-sichuan-interview', 'sc.alt5', '', '55% 35%')}</figure>
+      <figure class="img-reveal">{picture(p, 'cn-sichuan-presser', 'sc.alt6', '', '50% 45%')}</figure>
+    </div>
+    <p class="small kkd-credit">{p.t('sc.caption')} · {p.t('kkd.credit')}</p>
   </div>
 </section>
 <section class="section section-sand">

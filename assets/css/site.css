@@ -488,3 +488,7 @@ details p{margin-top:12px;font-size:15px;color:var(--text)}
 @media (max-width:720px){.core-row{grid-template-columns:34px 1fr 24px;gap:12px;padding:22px 0}.core-row p{display:none}.core-arrow{font-size:22px}}
 
 @media (max-width:720px){.kkd-gallery-4{grid-template-columns:1fr 1fr;gap:8px}}
+
+.kkd-gallery-6{grid-template-columns:repeat(3,1fr);margin-top:28px}
+.kkd-gallery-6 figure{aspect-ratio:3/2}
+@media (max-width:720px){.kkd-gallery-6{grid-template-columns:1fr 1fr;gap:8px}}

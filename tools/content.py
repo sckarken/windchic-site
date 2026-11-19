@@ -669,3 +669,16 @@ S.update({
     "bd.alt4": ("View of the forum hall from the back of the room", "Vue de la salle du forum depuis le fond", "从会场后方看论坛全景"),
     "kkd.credit": ("Photos: KKD Group and our China partner network", "Photos : KKD Group et notre réseau partenaire en Chine", "图片：东方科德及我们的中国合作网络"),
 })
+
+
+S.update({
+    "sc.caption": ("Media and cultural programme in Sichuan: press visit to the Sanxingdui archaeological site, interviews, Sichuan opera and a night-time water town",
+                   "Programme médias et culture au Sichuan : visite de presse du site archéologique de Sanxingdui, interviews, opéra du Sichuan et ville d'eau illuminée",
+                   "四川媒体与文化行程：三星堆遗址媒体探访、现场采访、川剧表演与水乡夜景"),
+    "sc.alt1": ("Lantern boat on a canal in an illuminated water town at night", "Barque à lanternes sur un canal d'une ville d'eau illuminée", "夜色灯光水乡中的灯笼船"),
+    "sc.alt2": ("Sichuan opera face-changing performer walking among the audience", "Artiste de l'opéra du Sichuan (changement de visage) au milieu du public", "川剧变脸演员走入观众席"),
+    "sc.alt3": ("Journalists and camera crews at the Sanxingdui archaeological site", "Journalistes et équipes de tournage sur le site archéologique de Sanxingdui", "三星堆遗址现场的记者与摄制组"),
+    "sc.alt4": ("Press group gathered in the Sanxingdui excavation hall", "Groupe de presse réuni dans le hall de fouilles de Sanxingdui", "三星堆考古大棚内的媒体团"),
+    "sc.alt5": ("Outdoor interview in a traditional garden", "Interview en extérieur dans un jardin traditionnel", "传统园林中的户外采访"),
+    "sc.alt6": ("Press conference with camera crews in a showroom", "Point presse avec équipes de tournage dans un showroom", "展厅内的媒体发布会"),
+})
