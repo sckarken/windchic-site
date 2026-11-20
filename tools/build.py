@@ -26,7 +26,11 @@ WECHAT = "Contact-Windchic"
 LASTMOD = "2026-11-20"          # bump when content changes (sitemap <lastmod>)
 INDEXNOW_KEY = "6f1c2a9e4b7d4e0a9c3b5d8e2f1a7c64"  # public by design: served at /<key>.txt
 CN_NAME = None                  # Chinese brand name once Wenjing validates it, e.g. "某某"
-SAME_AS = []                    # official profiles once they exist: WeChat OA, Xiaohongshu, LinkedIn, Zhihu…
+SAME_AS = []
+SITE_VERIFY = {                 # search-engine ownership checks (meta name -> code)
+    "msvalidate.01": "69FAD10940EEE8F571B58FA1DC2C923A",   # Bing Webmaster Tools
+    # "baidu-site-verification": "…", "sogou_site_verification": "…", "360-site-verification": "…",
+}                    # official profiles once they exist: WeChat OA, Xiaohongshu, LinkedIn, Zhihu…
 
 PAGES = [  # slug, nav key
     ("index", "nav.home"),
@@ -135,6 +139,7 @@ def head(p, title_key, desc_key):
     html_lang = {"en": "en", "fr": "fr", "zh": "zh-Hans"}[p.lang]
     og_locale = {"en": "en_GB", "fr": "fr_FR", "zh": "zh_CN"}[p.lang]
     # Baidu, 360 and Sogou still read meta keywords; Google ignores them.
+    verify = "".join(f'\n<meta name="{k}" content="{v}">' for k, v in SITE_VERIFY.items())
     keywords = ('\n<meta name="keywords" content="' + html.escape(p.t("zh.keywords")) + '">') if p.lang == "zh" else ""
     return f"""<!DOCTYPE html>
 <html lang="{html_lang}">
@@ -143,7 +148,7 @@ def head(p, title_key, desc_key):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{p.e(title_key)}</title>
 <meta name="description" content="{p.e(desc_key)}">
-<meta name="theme-color" content="#0b1420">{keywords}
+<meta name="theme-color" content="#0b1420">{keywords}{verify}
 <link rel="canonical" href="{p.url(p.slug)}">
 {alts}
 <meta property="og:type" content="website">
