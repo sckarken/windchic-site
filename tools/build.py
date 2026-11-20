@@ -71,7 +71,6 @@ PARTNERS = [  # name, logo file or None (wordmark), subtitle
     ("Wingstar", None, "GROUP"),
     ("LPF", "lpf.webp", None),
     ("KKD Group", "kkd.webp", None),
-    ("Aiper", None, None),
     ("Trend Tents", None, None),
 ]
 
@@ -495,7 +494,8 @@ def case_block(p, cid, prefix, status, images, layout):
 
 
 def page_projects(p):
-    projects = [("lyon", "pj.lyon", "proj-lyon", "status.progress", "50% 40%"),
+    projects = [("montpellier", "pj.mtp", "mtp-unloading", "status.delivered", "50% 55%"),
+                ("lyon", "pj.lyon", "proj-lyon", "status.progress", "50% 40%"),
                 ("madrid", "pj.mad", "proj-madrid", "status.prep", "60% 50%"),
                 ("barcelona", "pj.bcn", "proj-barcelona", "status.prep", "50% 60%"),
                 ("paris", "pj.par", "proj-paris-sales", "status.team", "35% 40%")]
@@ -548,9 +548,6 @@ def page_projects(p):
     </div>
   </div>
 </section>
-{case_block(p, 'montpellier', 'mtp', 'status.delivered', [
-    ('mtp-truck', 'mtp.alt1', '50% 60%'), ('mtp-unloading', 'mtp.alt2', '50% 55%'),
-    ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad')}
 {case_block(p, 'delegation', 'dl', 'status.team', [
     ('deleg-carrefour', 'dl.alt1', '50% 60%'), ('deleg-centrale-food', 'dl.alt2', '50% 55%'),
     ('deleg-bordeaux', 'dl.alt3', '50% 55%'), ('deleg-meeting', 'dl.alt4', '50% 50%')], 'grid')}
