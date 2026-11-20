@@ -76,7 +76,7 @@ Par ordre de priorité :
 
 ## 4. Contenu du site à ajouter ensuite (par ordre d'impact)
 1. **Une page par étude de cas** au lieu d'un bloc dans « Réalisations ». Une IA cite une URL précise, pas une page à onglets.
-2. **Des pages « ville × service »**, mais seulement là où vous avez une vraie expérience : « 法国展会落地服务 », « 巴塞罗那 MWC 参展差旅 », « 里昂 Piscine Global 展台活动 » ». Pas de pages vides générées en masse : c'est pénalisé et ça ne trompe pas les IA.
+2. **Des pages « ville × service »**, mais seulement là où vous avez une vraie expérience : « 法国展会落地服务 », « 巴塞罗那 MWC 参展差旅 », « 里昂 Piscine Global 展台活动 ». Pas de pages vides générées en masse : c'est pénalisé et ça ne trompe pas les IA.
 3. **Ouvrir les notes du Journal** : aujourd'hui, le texte est caché dans un bloc dépliable. Une vraie page par note est mieux indexée.
 
 ## 5. Mesurer : le test mensuel (30 minutes, le 1er de chaque mois)
