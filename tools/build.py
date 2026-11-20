@@ -213,6 +213,17 @@ def wa_link(p):
     return f"https://wa.me/{PHONE.lstrip('+')}?text={quote(p.t('wa.text'))}"
 
 
+def footer_cta(p):
+    """Every page already ends with cta_band(); the footer repeats a call to action
+    only where there is none (404)."""
+    if p.slug != "404":
+        return ""
+    return f"""<div class="footer-cta">
+      <div><p class="eyebrow">{p.t("footer.cta.eyebrow")}</p><h2 class="display">{p.t("footer.cta.title")}</h2></div>
+      <a class="btn btn-gold" href="{p.href('contact')}">{p.t("nav.quote")} <span aria-hidden="true">→</span></a>
+    </div>"""
+
+
 def footer(p):
     svc = "".join(f'<li><a href="{p.href("services")}#{sid}">{p.t(k + ".t")}</a></li>' for sid, k, _ in SERVICES[:6])
     nav = "".join(f'<li><a href="{p.href(s)}">{p.t(k)}</a></li>' for s, k in PAGES + [("faq", "nav.faq")])
@@ -221,10 +232,7 @@ def footer(p):
     return f"""</main>
 <footer class="site-footer">
   <div class="wrap">
-    <div class="footer-cta">
-      <div><p class="eyebrow">{p.t("footer.cta.eyebrow")}</p><h2 class="display">{p.t("footer.cta.title")}</h2></div>
-      <a class="btn btn-gold" href="{p.href('contact')}">{p.t("nav.quote")} <span aria-hidden="true">→</span></a>
-    </div>
+    {footer_cta(p)}
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="{p.pre}assets/logos/windchic-white.png" alt="WINDCHIC" width="190" height="56" loading="lazy">
@@ -298,7 +306,16 @@ def cta_band(p):
 
 # ── Pages ───────────────────────────────────────────────────────────────
 
+HOME_DO = [  # (services anchor, copy key, image) — the four practices shown on the home page
+    ("exhibitions", "home.do.expo", "svc-exhibitions"),
+    ("concierge", "home.do.deleg", "deleg-carrefour"),
+    ("equipment", "home.do.equip", "svc-equipment"),
+    ("sourcing", "home.do.source", "svc-sourcing"),
+]
+
+
 def page_index(p):
+    """Five blocks: promise, what we do, proof, how it works, contact."""
     slides = [("hero-paris", "home.hero.alt1", "50% 55%", "62% 50%"),
               ("hero-celebration", "home.hero.alt2", "50% 40%", "50% 40%"),
               ("hero-barcelona", "home.hero.alt3", "55% 50%", "68% 50%")]
@@ -306,25 +323,18 @@ def page_index(p):
         f'<div class="hero-slide{" is-active" if i == 0 else ""}" style="--pos:{pd};--pos-m:{pm}">'
         f'<img src="{p.img(n)}" alt="{p.e(a)}" {"fetchpriority=high" if i == 0 else "loading=lazy decoding=async"}></div>'
         for i, (n, a, pd, pm) in enumerate(slides))
-    pillars = "".join(
-        f'<article class="pillar reveal"><span class="pillar-num">0{i}</span><h3>{p.t(f"home.p{i}.t")}</h3><p>{p.t(f"home.p{i}.d")}</p></article>'
-        for i in (1, 2, 3))
-    core_rows = "".join(
-        f'<a class="core-row reveal" href="{p.href("services")}#{sid}"><span class="svc-num">{i:02d}</span>'
-        f'<h3>{p.t(k + ".t")}</h3><p>{p.t(k + ".s")}</p><span class="core-arrow" aria-hidden="true">↗</span></a>'
-        for i, (sid, k, _) in enumerate(CORE, 1))
-    svc_cards = "".join(
-        f'<a class="svc-card reveal" href="{p.href("services")}#{sid}"><span class="svc-num">{i:02d}</span>'
-        f'<h3>{p.t(k + ".t")}</h3><p>{p.t(k + ".s")}</p><span class="svc-arrow" aria-hidden="true">→</span></a>'
-        for i, (sid, k, _) in enumerate(EVENT, 1))
-    reasons = "".join(
-        f'<li class="reason reveal"><span class="reason-num">{i}</span><div><h3>{p.t(f"reasons.r{i}.t")}</h3><p>{p.t(f"reasons.r{i}.d")}</p></div></li>'
-        for i in range(1, 6))
+    do_cards = "".join(
+        f'<a class="do-card reveal" href="{p.href("services")}#{sid}">'
+        f'<div class="do-media">{picture(p, img, None, "")}</div>'
+        f'<span class="svc-num">{i:02d}</span><h3>{p.t(k + ".t")}</h3><p>{p.t(k + ".d")}</p>'
+        f'<span class="do-arrow" aria-hidden="true">→</span></a>'
+        for i, (sid, k, img) in enumerate(HOME_DO, 1))
     steps = "".join(
-        f'<li class="step-item reveal"><span class="step-num">0{i}</span><h3>{p.t(f"process.s{i}.t")}</h3><p>{p.t(f"process.s{i}.d")}</p></li>'
-        for i in range(1, 5))
+        f'<li class="step-item reveal"><span class="step-num">0{i}</span><h3>{p.t(f"home.s{i}.t")}</h3><p>{p.t(f"home.s{i}.d")}</p></li>'
+        for i in (1, 2, 3))
     stats = "".join(
         f'<div><strong data-count="{p.t(f"home.case.s{i}")}">{p.t(f"home.case.s{i}")}</strong><span>{p.t(f"home.case.s{i}l")}</span></div>' for i in (1, 2, 3))
+    swipe = f'<p class="swipe-hint" aria-hidden="true">{p.t("home.swipe")} <span>→</span></p>'
     return f"""
 <section class="hero" aria-roledescription="carousel">
   <div class="hero-slides" data-slides>{slide_html}</div>
@@ -335,7 +345,7 @@ def page_index(p):
     <p class="lead hero-lead">{p.t("home.hero.lead")}</p>
     <div class="btn-row">
       <a class="btn btn-gold" href="{p.href('contact')}">{p.t("nav.quote")} <span aria-hidden="true">→</span></a>
-      <a class="btn btn-ghost" href="{p.href('services')}">{p.t("home.hero.cta2")}</a>
+      <a class="btn btn-ghost" href="{p.href('contact')}#wechat">{p.t("home.hero.cta2")}</a>
     </div>
   </div>
   <div class="wrap hero-bar">
@@ -345,37 +355,18 @@ def page_index(p):
       <button type="button" class="hero-next" aria-label="{p.e('home.hero.next')}">→</button>
       <span class="hero-progress" aria-hidden="true"><i></i></span>
     </div>
-    <a class="hero-scroll" href="#bridge">{p.t("home.hero.scroll")} <span aria-hidden="true">↓</span></a>
+    <a class="hero-scroll" href="#what">{p.t("home.hero.scroll")} <span aria-hidden="true">↓</span></a>
   </div>
 </section>
 
-<section class="section bridge" id="bridge">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal"><p class="eyebrow">{p.t("home.bridge.eyebrow")}</p><h2 class="display">{p.t("home.bridge.title")}</h2></div>
-      <p class="lead reveal">{p.t("home.bridge.lead")}</p>
-    </div>
-    <div class="pillars">{pillars}</div>
-  </div>
-</section>
-
-<section class="section core">
+<section class="section do" id="what">
   <div class="wrap">
     <div class="section-head reveal">
-      <div><p class="eyebrow">{p.t("core.eyebrow")}</p><h2 class="display">{p.t("core.title")}</h2></div>
+      <div><p class="eyebrow">{p.t("home.do.eyebrow")}</p><h2 class="display">{p.t("home.do.title")}</h2></div>
       <a class="link-arrow" href="{p.href('services')}">{p.t("home.services.all")} <span aria-hidden="true">→</span></a>
     </div>
-    <div class="core-rows">{core_rows}</div>
-  </div>
-</section>
-
-<section class="section section-sand">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div><p class="eyebrow">{p.t("home.services.eyebrow")}</p><h2 class="display">{p.t("home.services.title")}</h2></div>
-      <a class="link-arrow" href="{p.href('services')}">{p.t("home.services.all")} <span aria-hidden="true">→</span></a>
-    </div>
-    <div class="svc-grid">{svc_cards}</div>
+    <div class="do-grid swipe">{do_cards}</div>
+    {swipe}
   </div>
 </section>
 
@@ -389,23 +380,16 @@ def page_index(p):
     <a class="link-arrow" href="{p.href('projects')}#segovia">{p.t("home.case.cta")} <span aria-hidden="true">→</span></a>
   </div>
 </section>
+{partners_block(p)}
 
-<section class="section reasons">
-  {picture(p, 'reasons-bg', None, 'reasons-bg', '50% 60%')}
-  <div class="wrap reasons-inner">
-    <div class="section-head reveal"><div><p class="eyebrow">{p.t("reasons.eyebrow")}</p><h2 class="display">{p.t("reasons.title")}</h2></div></div>
-    <ol class="reason-list">{reasons}</ol>
-  </div>
-</section>
-
-<section class="section">
+<section class="section section-sand">
   <div class="wrap">
     <div class="section-head reveal"><div><p class="eyebrow">{p.t("process.eyebrow")}</p><h2 class="display">{p.t("process.title")}</h2></div></div>
-    <ol class="steps">{steps}</ol>
+    <ol class="steps steps-3 swipe">{steps}</ol>
+    {swipe}
   </div>
 </section>
 
-{partners_block(p)}
 {cta_band(p)}
 """
 
@@ -577,13 +561,15 @@ def page_projects(p):
 <section class="section section-sand">
   <div class="wrap">
     <div class="section-head reveal"><div><p class="eyebrow">{p.t('projects.more.eyebrow')}</p><h2 class="display">{p.t('projects.more.title')}</h2></div></div>
-    <div class="proj-grid">{cards}</div>
+    <div class="proj-grid swipe">{cards}</div>
+    <p class="swipe-hint" aria-hidden="true">{p.t("home.swipe")} <span>→</span></p>
   </div>
 </section>
 <section class="section">
   <div class="wrap">
     <div class="section-head reveal"><div><p class="eyebrow">{p.t('projects.exp.eyebrow')}</p><h2 class="display">{p.t('projects.exp.title')}</h2></div></div>
-    <div class="story-grid">{stories}</div>
+    <div class="story-grid swipe">{stories}</div>
+    <p class="swipe-hint" aria-hidden="true">{p.t("home.swipe")} <span>→</span></p>
   </div>
 </section>
 {cta_band(p)}"""

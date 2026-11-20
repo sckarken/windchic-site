@@ -506,3 +506,38 @@ details p{margin-top:12px;font-size:15px;color:var(--text)}
 /* WeChat floating button (Chinese pages) */
 .wx-float,.wx-float::before{background:#07c160}
 .faq-body{padding-top:clamp(32px,4vw,56px)}
+
+/* ── Home v7 ─────────────────────────────────────────────────────────── */
+.hero-title{max-width:none;text-wrap:balance}
+.hero-title em{display:inline-block}
+.lang-zh .hero-title{max-width:none}
+/* what we do: four photo cards */
+.do-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,28px)}
+.do-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;padding-bottom:60px;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.do-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(11,20,32,.10)}
+.do-media{aspect-ratio:4/3;overflow:hidden;margin-bottom:20px}
+.do-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.do-card:hover .do-media img{transform:scale(1.04)}
+.do-card .svc-num,.do-card h3,.do-card p{padding-inline:24px}
+.do-card h3{font:500 clamp(22px,1.9vw,27px)/1.2 var(--serif);margin:8px 0 10px;color:var(--ink)}
+.lang-zh .do-card h3{font-weight:600}
+.do-card p{margin:0;font-size:15px;color:var(--text)}
+.do-arrow{position:absolute;left:24px;bottom:22px;font-size:20px;color:var(--gold-deep);transition:transform .3s var(--ease)}
+.do-card:hover .do-arrow{transform:translateX(6px)}
+.steps-3{grid-template-columns:repeat(3,1fr)}
+.swipe-hint{display:none}
+@media (max-width:1180px){.do-grid{grid-template-columns:repeat(2,1fr)}.steps-3{grid-template-columns:repeat(3,1fr)}}
+/* mobile: the page scrolls down, card groups slide sideways */
+@media (max-width:720px){
+  .swipe{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;
+    margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);scroll-padding-inline:var(--gutter);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{flex:0 0 82%;scroll-snap-align:start}
+  .steps.swipe>*{flex-basis:78%}
+  .swipe-hint{display:block;margin:16px 0 0;font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+  .swipe-hint span{display:inline-block;animation:nudge 1.6s ease-in-out infinite}
+  .do-card .svc-num,.do-card h3,.do-card p{padding-inline:18px}
+  .do-arrow{left:18px}
+}
+@keyframes nudge{50%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.swipe-hint span{animation:none}}

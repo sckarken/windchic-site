@@ -806,3 +806,49 @@ _zh("home.title", "WINDCHIC — 欧洲活动策划与落地执行 · 海外参�
 _zh("home.desc", "中国企业出海欧洲的活动执行伙伴：海外参展、商务考察团接待、企业活动、活动人员与翻译、餐饮、视听设备。中文项目负责人全程对接，法国、西班牙、意大利本地团队执行。")
 _zh("services.title", "服务 — WINDCHIC 欧洲活动执行、展会服务与商务接待")
 _zh("services.desc", "欧洲活动一站式服务：展会人员与翻译、展台活动、设备租赁、活动设计、餐饮、演出、视听、团建、商务考察团接待与中欧采购寻源，覆盖法国、西班牙、意大利及全欧洲。")
+
+
+# ── Home v7: say what we do in 3 seconds, five blocks only ─────────────
+# Target: Chinese companies running trade shows, delegations and events in Europe.
+S.update({
+    "home.hero.eyebrow": ("Running an event in Europe from China?", "Organiser en Europe depuis la Chine ?", "在欧洲办展、办活动？"),
+    "home.hero.title": ("Your event in Europe,<br><em>handled in Chinese, end to end.</em>",
+                        "Votre événement en Europe,<br><em>géré en chinois de A à Z.</em>",
+                        "您在欧洲的展会与活动，<br><em>中文对接，全程落地。</em>"),
+    "home.hero.lead": ("Trade shows, business delegations, corporate events: you define, we deliver on the ground.",
+                       "Salons, délégations d'affaires, événements d'entreprise : vous définissez, nous concrétisons sur place.",
+                       "海外参展、商务考察、企业活动：您提出需求，我们在当地落实交付。"),
+    "home.hero.cta2": ("Add us on WeChat", "Nous écrire sur WeChat", "添加微信咨询"),
+    "home.do.eyebrow": ("What we do", "Ce que nous faisons", "我们做什么"),
+    "home.do.title": ("Four practices.<br><em>One point of contact.</em>", "Quatre métiers.<br><em>Un seul interlocuteur.</em>", "四大业务，<br><em>一个对接人。</em>"),
+    "home.do.expo.t": ("Trade shows & events", "Salons & événements", "展会与活动"),
+    "home.do.expo.d": ("Stand, bilingual staff, activations, logistics before and after the show.",
+                       "Stand, staff bilingue, animations, logistique avant et après le salon.",
+                       "展台、双语人员、现场活动，展前展后物流。"),
+    "home.do.deleg.t": ("Business delegations", "Délégations d'affaires", "商务考察团"),
+    "home.do.deleg.d": ("Programme, company visits, meetings, transport and interpreters.",
+                        "Programme, visites d'entreprises, rendez-vous, transport et interprètes.",
+                        "行程安排、企业参观、商务会谈、交通与翻译。"),
+    "home.do.equip.t": ("Specialist equipment", "Matériel spécialisé", "专业设备"),
+    "home.do.equip.d": ("Screens, kiosks, tablets: sourced, delivered, installed and tested.",
+                        "Écrans, bornes, tablettes : trouvés, livrés, installés et testés.",
+                        "屏幕、触摸屏、平板：寻源、交付、安装、测试。"),
+    "home.do.source.t": ("China–Europe sourcing", "Sourcing Chine–Europe", "中欧采购寻源"),
+    "home.do.source.d": ("Manufacturers, compared quotes and purchase follow-up.",
+                         "Fabricants, devis comparés et suivi des achats.",
+                         "筛选制造商、比较报价、跟进采购。"),
+    "home.swipe": ("Swipe", "Glissez", "左右滑动"),
+    "process.title": ("Three steps. <em>Zero surprises.</em>", "Trois étapes. <em>Zéro surprise.</em>", "三个步骤，<em>零意外。</em>"),
+    "home.s1.t": ("You brief us, in Chinese", "Vous briefez, en chinois", "用中文提出需求"),
+    "home.s1.d": ("City, date, guests, budget: on WeChat, by email or on a call.",
+                  "Ville, date, invités, budget : sur WeChat, par email ou en appel.",
+                  "城市、日期、人数、预算：微信、邮件或电话沟通。"),
+    "home.s2.t": ("A proposal within 48 hours", "Une proposition sous 48 h", "48 小时内出方案"),
+    "home.s2.d": ("Providers, options and a transparent budget, every quote compared.",
+                  "Prestataires, options et budget transparent, chaque devis comparé.",
+                  "供应商、可选项与透明预算，每份报价都经过比较。"),
+    "home.s3.t": ("We run it, up to the day", "Nous gérons tout, jusqu'au jour J", "全程落地，直到活动当天"),
+    "home.s3.d": ("Contracts, logistics, crews: one contact, on site on the day.",
+                  "Contrats, logistique, équipes : un seul interlocuteur, présent sur place.",
+                  "合同、物流、团队统一管理：一个对接人，活动当天亲临现场。"),
+})
