@@ -14,7 +14,7 @@ import sys
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(__file__))
-from content import LANGS, S, STORIES, t as _t  # noqa: E402
+from content import FAQ, LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
@@ -23,6 +23,10 @@ PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
 WECHAT = "Contact-Windchic"
+LASTMOD = "2026-11-20"          # bump when content changes (sitemap <lastmod>)
+INDEXNOW_KEY = "6f1c2a9e4b7d4e0a9c3b5d8e2f1a7c64"  # public by design: served at /<key>.txt
+CN_NAME = None                  # Chinese brand name once Wenjing validates it, e.g. "某某"
+SAME_AS = []                    # official profiles once they exist: WeChat OA, Xiaohongshu, LinkedIn, Zhihu…
 
 PAGES = [  # slug, nav key
     ("index", "nav.home"),
@@ -128,10 +132,10 @@ def head(p, title_key, desc_key):
         f'<link rel="alternate" hreflang="{"zh-Hans" if l == "zh" else l}" href="{p.url(p.slug, l)}">'
         for l in LANGS) + f'<link rel="alternate" hreflang="x-default" href="{p.url(p.slug, "en")}">'
     fonts = "family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600"
-    if p.lang == "zh":
-        fonts += "&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@500;600"
     html_lang = {"en": "en", "fr": "fr", "zh": "zh-Hans"}[p.lang]
     og_locale = {"en": "en_GB", "fr": "fr_FR", "zh": "zh_CN"}[p.lang]
+    # Baidu, 360 and Sogou still read meta keywords; Google ignores them.
+    keywords = ('\n<meta name="keywords" content="' + html.escape(p.t("zh.keywords")) + '">') if p.lang == "zh" else ""
     return f"""<!DOCTYPE html>
 <html lang="{html_lang}">
 <head>
@@ -139,7 +143,7 @@ def head(p, title_key, desc_key):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{p.e(title_key)}</title>
 <meta name="description" content="{p.e(desc_key)}">
-<meta name="theme-color" content="#0b1420">
+<meta name="theme-color" content="#0b1420">{keywords}
 <link rel="canonical" href="{p.url(p.slug)}">
 {alts}
 <meta property="og:type" content="website">
@@ -152,7 +156,7 @@ def head(p, title_key, desc_key):
 <link rel="icon" href="{p.pre}assets/logos/windchic-mark.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?{fonts}&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?{fonts}&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?{fonts}&display=swap"></noscript>
 <link rel="stylesheet" href="{p.pre}assets/css/site.css?v={VERSION}">
 <script defer src="{p.pre}assets/js/site.js?v={VERSION}"></script>
 </head>"""
@@ -206,7 +210,7 @@ def wa_link(p):
 
 def footer(p):
     svc = "".join(f'<li><a href="{p.href("services")}#{sid}">{p.t(k + ".t")}</a></li>' for sid, k, _ in SERVICES[:6])
-    nav = "".join(f'<li><a href="{p.href(s)}">{p.t(k)}</a></li>' for s, k in PAGES)
+    nav = "".join(f'<li><a href="{p.href(s)}">{p.t(k)}</a></li>' for s, k in PAGES + [("faq", "nav.faq")])
     wa_svg = ('<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.7L3 29l6.5-1.7A13 13 0 1 0 16 3Z" '
               'fill="none" stroke="currentColor" stroke-width="2"/><path d="M11.2 9.4c-.5-.6-1.2-.4-1.5.2-.5 1.1-.7 2.1 0 3.5 1.6 3.5 4.8 6.8 8.1 8 .9.4 2.2.5 3.1 0 .7-.4 1.6-1.2 1.7-1.9l-3.4-1.5-1.4 1.4c-1.8-.7-3.3-2.1-4.2-3.9l1.2-1.5-1.5-3.4Z" fill="currentColor"/></svg>')
     return f"""</main>
@@ -238,10 +242,22 @@ def footer(p):
   </div>
   <a class="footer-word" href="{p.href('index')}" aria-label="WINDCHIC">{''.join(f'<span style="--i:{i}">{c}</span>' for i, c in enumerate('WINDCHIC'))}</a>
 </footer>
-<a class="wa-float" href="{wa_link(p)}" target="_blank" rel="noopener" aria-label="{p.e('wa.label')}" title="{p.e('wa.label')}">{wa_svg}</a>
+{float_btn(p, wa_svg)}
 </body>
 </html>
 """
+
+
+WECHAT_SVG = ('<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M12.5 5C6.7 5 2 8.9 2 13.7c0 2.7 1.5 5.1 3.9 6.7L5 23.5l3.5-1.8c1.2.4 2.6.6 4 .6h.6a8 8 0 0 1-.3-2.1c0-4.6 4.4-8.3 9.9-8.3h.6C22.4 8.1 17.9 5 12.5 5Z" fill="currentColor"/>'
+              '<path d="M30 20.2c0-3.9-3.8-7-8.4-7s-8.4 3.1-8.4 7 3.8 7 8.4 7c1 0 2-.2 2.9-.4l2.9 1.5-.8-2.6c2-1.3 3.4-3.3 3.4-5.5Z" fill="currentColor" opacity=".85"/></svg>')
+
+
+def float_btn(p, wa_svg):
+    if p.lang == "zh":
+        return (f'<a class="wa-float wx-float" href="{p.href("contact")}#wechat" aria-label="{p.e("wx.label")}" '
+                f'title="{p.e("wx.label")}">{WECHAT_SVG}</a>')
+    return (f'<a class="wa-float" href="{wa_link(p)}" target="_blank" rel="noopener" aria-label="{p.e("wa.label")}" '
+            f'title="{p.e("wa.label")}">{wa_svg}</a>')
 
 
 def subhero(p, prefix, image, pos="center"):
@@ -256,6 +272,12 @@ def subhero(p, prefix, image, pos="center"):
 </section>"""
 
 
+def cta_secondary(p):
+    wa = f'<a class="btn btn-ghost" href="{wa_link(p)}" target="_blank" rel="noopener">WhatsApp</a>'
+    wx = f'<a class="btn btn-ghost" href="{p.href("contact")}#wechat">{p.t("cta.wechat")}</a>'
+    return wx + "\n      " + wa if p.lang == "zh" else wa + "\n      " + wx
+
+
 def cta_band(p):
     return f"""<section class="cta-band">
   <div class="wrap cta-inner reveal">
@@ -263,8 +285,7 @@ def cta_band(p):
     <p class="lead">{p.t("cta.lead")}</p>
     <div class="btn-row">
       <a class="btn btn-gold" href="{p.href('contact')}">{p.t("nav.quote")} <span aria-hidden="true">→</span></a>
-      <a class="btn btn-ghost" href="{wa_link(p)}" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="btn btn-ghost" href="{p.href('contact')}#wechat">{p.t("cta.wechat")}</a>
+      {cta_secondary(p)}
     </div>
   </div>
 </section>"""
@@ -692,15 +713,72 @@ def page_contact(p):
 </section>"""
 
 
+def page_faq(p):
+    items = "".join(f"""<details class="faq-item reveal"{' open' if i == 0 else ''}>
+  <summary><h2>{html.escape(q[LANGS.index(p.lang)])}</h2></summary>
+  <p>{html.escape(a[LANGS.index(p.lang)])}</p>
+</details>""" for i, (q, a) in enumerate(FAQ))
+    return f"""<section class="section faq-head"><div class="wrap narrow">
+  <p class="eyebrow">{p.t('faq.eyebrow')}</p>
+  <h1 class="display">{p.t('faq.h')}</h1>
+  <p class="lead">{p.t('faq.lead')}</p>
+</div></section>
+<section class="section faq-body"><div class="wrap narrow faq-list">{items}</div></section>
+{cta_band(p)}"""
+
+
 def page_404(p):
     return f"""<section class="nf"><div class="wrap"><p class="eyebrow">404</p><h1 class="display">{p.t('nf.h')}</h1>
 <a class="btn btn-gold" href="/{'' if p.lang == 'en' else p.lang + '/'}">{p.t('nf.back')}</a></div></section>"""
 
 
-def org_jsonld():
-    data = {"@context": "https://schema.org", "@type": "Organization", "name": "WINDCHIC", "url": SITE,
-            "logo": f"{SITE}/assets/logos/windchic-mark.png", "email": EMAIL, "telephone": PHONE,
-            "areaServed": "Europe", "knowsLanguage": ["zh", "fr", "en", "es", "de"]}
+def org_data(lang):
+    data = {
+        "@type": "Organization", "@id": f"{SITE}/#org", "name": "WINDCHIC", "url": f"{SITE}/",
+        "logo": f"{SITE}/assets/logos/windchic-mark.png", "image": f"{SITE}/assets/img/segovia-kiosks.webp",
+        "description": _t("faq.org", lang), "slogan": _t("brand.tagline", lang),
+        "email": EMAIL, "telephone": PHONE,
+        "areaServed": [{"@type": "Country", "name": c} for c in ("France", "Spain", "Italy", "United Kingdom")]
+                      + [{"@type": "Place", "name": "Europe"}],
+        "knowsLanguage": ["zh", "fr", "en", "es", "de"],
+        "knowsAbout": [_t(k + ".t", lang) for _, k, _ in SERVICES],
+        "founder": [{"@type": "Person", "name": "Wenjing", "jobTitle": _t("faq.role.w", lang)},
+                    {"@type": "Person", "name": "Théo", "jobTitle": _t("faq.role.t", lang)}],
+        "contactPoint": [{"@type": "ContactPoint", "contactType": "customer service", "email": EMAIL,
+                          "telephone": PHONE, "availableLanguage": ["Chinese", "French", "English", "Spanish", "German"]}],
+        "identifier": [{"@type": "PropertyValue", "propertyID": "WeChat", "value": WECHAT}],
+    }
+    if CN_NAME:
+        data["alternateName"] = CN_NAME
+    if SAME_AS:
+        data["sameAs"] = SAME_AS
+    return data
+
+
+def jsonld(p, title_key, desc_key):
+    """Structured data on every page: who we are, what the page is, and (where it
+    applies) the services offered or the FAQ. This is what search engines and AI
+    assistants read to describe WINDCHIC accurately."""
+    in_lang = {"en": "en", "fr": "fr", "zh": "zh-Hans"}[p.lang]
+    graph = [org_data(p.lang),
+             {"@type": "WebSite", "@id": f"{SITE}/#site", "url": f"{SITE}/", "name": "WINDCHIC",
+              "publisher": {"@id": f"{SITE}/#org"}, "inLanguage": ["en", "fr", "zh-Hans"]},
+             {"@type": "FAQPage" if p.slug == "faq" else ("AboutPage" if p.slug == "about" else
+                       ("ContactPage" if p.slug == "contact" else "WebPage")),
+              "@id": p.url(p.slug) + "#page", "url": p.url(p.slug), "name": p.t(title_key).replace(" — ", " · "),
+              "description": p.t(desc_key), "inLanguage": in_lang,
+              "isPartOf": {"@id": f"{SITE}/#site"}, "about": {"@id": f"{SITE}/#org"}}]
+    if p.slug == "faq":
+        i = LANGS.index(p.lang)
+        graph[2]["mainEntity"] = [{"@type": "Question", "name": q[i],
+                                   "acceptedAnswer": {"@type": "Answer", "text": a[i]}} for q, a in FAQ]
+    if p.slug in ("services", "index"):
+        graph.append({"@type": "OfferCatalog", "name": p.t("nav.services"), "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": p.t(k + ".t"), "description": p.t(k + ".s"),
+                                               "url": f"{p.url('services')}#{sid}", "provider": {"@id": f"{SITE}/#org"},
+                                               "areaServed": {"@type": "Place", "name": "Europe"}}}
+            for sid, k, _ in SERVICES]})
+    data = {"@context": "https://schema.org", "@graph": graph}
     return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>'
 
 
@@ -711,7 +789,85 @@ RENDER = {
     "about": (page_about, "about.title", "about.desc", True),
     "journal": (page_journal, "journal.title", "journal.desc", True),
     "contact": (page_contact, "contact.title", "contact.desc", True),
+    "faq": (page_faq, "faq.title", "faq.desc", False),
 }
+
+
+# ── Files for search engines and AI assistants ─────────────────────────
+
+AI_BOTS = [  # explicitly welcomed; "*" already allows everyone, this documents intent
+    # OpenAI, Anthropic, Perplexity, Google, Microsoft, Apple, Meta, Common Crawl
+    "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User",
+    "PerplexityBot", "Perplexity-User", "Google-Extended", "Googlebot", "Bingbot", "Applebot",
+    "Applebot-Extended", "Meta-ExternalAgent", "CCBot", "Amazonbot", "DuckAssistBot", "MistralAI-User",
+    # China: Baidu (Ernie/Wenxin), ByteDance (Doubao), Sogou (Tencent), 360, Shenma/Quark (Alibaba),
+    # Huawei Petal, Zhipu (ChatGLM)
+    "Baiduspider", "Baiduspider-render", "Bytespider", "Sogou web spider", "360Spider",
+    "YisouSpider", "PetalBot", "ChatGLM-Spider",
+]
+
+
+def llms_txt(full=False):
+    """llms.txt: a plain-text briefing for AI assistants (https://llmstxt.org).
+    Generated from content.py so it never drifts from the site."""
+    en, zh, fr = 0, 2, 1
+    out = ["# WINDCHIC", "",
+           "> " + S["faq.org"][en], "",
+           "> " + S["faq.org"][zh], "",
+           "> " + S["faq.org"][fr], ""]
+    out += ["## Key facts / 核心信息", "",
+            "- Website: https://windchic.com (English), https://windchic.com/zh/ (中文), https://windchic.com/fr/ (Français)",
+            "- Business: event production, trade-show support, business delegations, event services and China–Europe sourcing in Europe / 欧洲活动策划与落地执行、海外参展服务、商务考察团接待、中欧采购寻源",
+            "- For: Chinese and international companies organising events in Europe / 服务对象：在欧洲举办活动或参展的中国及国际企业（出海企业）",
+            "- Area: Europe-wide, mainly France, Spain, Italy; missions in Paris, Lyon, Montpellier, Bordeaux, Segovia, Madrid, Barcelona, United Kingdom / 覆盖全欧洲，以法国、西班牙、意大利为主",
+            "- Team: Wenjing (Chinese-speaking project lead / 中文项目负责人) and Théo (operations in Europe / 欧洲运营负责人)",
+            "- Languages / 工作语言: Chinese 中文, French, English, Spanish, German",
+            "- Size: from a 20-guest dinner to a 500-person convention / 20 人晚宴至 500 人大会",
+            "- Response: reply within 24 hours, structured proposal within 48 hours / 24 小时内回复，48 小时内出方案",
+            "- Partner in China / 国内合作伙伴: KKD Group 东方科德 (Guangdong, 18 years of events)",
+            f"- Contact: WeChat 微信 {WECHAT} · WhatsApp/phone {PHONE_H} · {EMAIL}",
+            ""]
+    out += ["## Pages / 页面", ""]
+    for slug, (_, tk, dk, _) in RENDER.items():
+        pe, pz = Page("en", slug), Page("zh", slug)
+        out.append(f"- [{_t(tk, 'en').replace(' — ', ' · ')}]({pe.url(slug)}): {_t(dk, 'en')}")
+        out.append(f"- [{_t(tk, 'zh').replace(' — ', ' · ')}]({pz.url(slug)}): {_t(dk, 'zh')}")
+    out.append("")
+    out += ["## Services / 服务", ""]
+    for sid, k, _ in SERVICES:
+        line = f"- {S[k + '.t'][en]} / {S[k + '.t'][zh]}: {S[k + '.s'][en]} {S[k + '.s'][zh]}"
+        if full and (k + ".d") in S:
+            line += f"\n  - {S[k + '.d'][en]}\n  - {S[k + '.d'][zh]}"
+        out.append(line)
+    out.append("")
+    out += ["## Projects / 项目案例", "",
+            f"- {S['case.title'][en]}: {S['case.challenge.d'][en]} {S['case.result.d'][en]}",
+            f"- {S['dl.title'][en]} / {S['dl.title'][zh]}: {S['dl.approach.d'][en]}"]
+    for k in ("pj.lyon", "pj.mtp", "pj.mad", "pj.bcn", "pj.par"):
+        out.append(f"- {S[k + '.t'][en]} ({S[k + '.loc'][en]}) / {S[k + '.t'][zh]}" + (f": {S[k + '.d'][en]}" if full else ""))
+    out.append("")
+    if full:
+        out += ["## FAQ (English)", ""] + [f"### {q[en]}\n{a[en]}\n" for q, a in FAQ]
+        out += ["## 常见问题（中文）", ""] + [f"### {q[zh]}\n{a[zh]}\n" for q, a in FAQ]
+        out += ["## FAQ (Français)", ""] + [f"### {q[fr]}\n{a[fr]}\n" for q, a in FAQ]
+    else:
+        out += ["## FAQ", "",
+                f"- [FAQ (English)]({SITE}/faq.html)", f"- [常见问题（中文）]({SITE}/zh/faq.html)",
+                f"- [FAQ (Français)]({SITE}/fr/faq.html)", "",
+                "## Optional", "", f"- [Full text for AI assistants / 完整文本]({SITE}/llms-full.txt)", ""]
+    return strip_dashes("\n".join(out), "en").replace("<em>", "").replace("</em>", "").replace("<br>", " ")
+
+
+def write_ai_files():
+    robots = ["User-agent: *", "Allow: /", ""]
+    for bot in AI_BOTS:
+        robots += [f"User-agent: {bot}", "Allow: /", ""]
+    robots += [f"Sitemap: {SITE}/sitemap.xml", ""]
+    files = {"robots.txt": "\n".join(robots), "llms.txt": llms_txt(), "llms-full.txt": llms_txt(full=True),
+             f"{INDEXNOW_KEY}.txt": INDEXNOW_KEY}
+    for name, text in files.items():
+        with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:
+            f.write(text if text.endswith("\n") else text + "\n")
 
 
 def build():
@@ -726,8 +882,7 @@ def build():
             p = Page(lang, slug)
             body = fn(p)
             doc = head(p, tk, dk) + header(p, overlay) + body + footer(p)
-            if slug == "index":
-                doc = doc.replace("</head>", org_jsonld() + "\n</head>", 1)
+            doc = doc.replace("</head>", jsonld(p, tk, dk) + "\n</head>", 1)
             doc = strip_dashes(doc, lang)
             path = os.path.join(outdir, "index.html" if slug == "index" else f"{slug}.html")
             with open(path, "w", encoding="utf-8") as f:
@@ -747,11 +902,12 @@ def build():
         p = Page("en", slug)
         alts = "".join(f'<xhtml:link rel="alternate" hreflang="{"zh-Hans" if l == "zh" else l}" href="{p.url(slug, l)}"/>' for l in LANGS)
         for l in LANGS:
-            urls.append(f"<url><loc>{p.url(slug, l)}</loc>{alts}</url>")
+            urls.append(f"<url><loc>{p.url(slug, l)}</loc><lastmod>{LASTMOD}</lastmod>{alts}</url>")
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
                 'xmlns:xhtml="http://www.w3.org/1999/xhtml">' + "".join(urls) + "</urlset>\n")
-    print(f"Built {len(written)} pages + 404.html + sitemap.xml")
+    write_ai_files()
+    print(f"Built {len(written)} pages + 404.html + sitemap.xml + robots.txt + llms.txt + llms-full.txt")
 
 
 if __name__ == "__main__":

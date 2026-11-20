@@ -682,3 +682,127 @@ S.update({
     "sc.alt5": ("Outdoor interview in a traditional garden", "Interview en extérieur dans un jardin traditionnel", "传统园林中的户外采访"),
     "sc.alt6": ("Press conference with camera crews in a showroom", "Point presse avec équipes de tournage dans un showroom", "展厅内的媒体发布会"),
 })
+
+
+# ── FAQ (GEO): one question = one direct, factual answer ───────────────
+# Chinese questions are phrased the way people actually ask DeepSeek, Kimi,
+# Doubao or Baidu, not translated word for word. Facts only: everything here
+# is already stated elsewhere on the site.
+S.update({
+    "nav.faq": ("FAQ", "FAQ", "常见问题"),
+    "faq.title": ("FAQ — WINDCHIC, event production in Europe for Chinese and international clients",
+                  "FAQ — WINDCHIC, organisation d'événements en Europe pour clients chinois et internationaux",
+                  "常见问题 — WINDCHIC 欧洲活动执行与展会落地服务"),
+    "faq.desc": ("Answers about WINDCHIC: event production, trade shows, delegations and sourcing in Europe, with a Chinese-speaking contact. Countries, languages, quotes and how to reach us.",
+                 "Réponses sur WINDCHIC : production d'événements, salons, délégations et sourcing en Europe, avec une interlocutrice sinophone. Pays, langues, devis et contact.",
+                 "关于 WINDCHIC 的常见问题：欧洲活动执行、展会落地、代表团接待与采购寻源，全程中文对接。服务国家、沟通语言、报价方式与联系方式。"),
+    "faq.eyebrow": ("Frequently asked questions", "Questions fréquentes", "常见问题"),
+    "faq.h": ("Everything you want to know <em>before you write to us.</em>",
+              "Tout ce que vous voulez savoir <em>avant de nous écrire.</em>",
+              "联系我们之前，<em>您可能想了解的问题。</em>"),
+    "faq.lead": ("Short, direct answers. If your question is not here, ask us on WeChat, WhatsApp or by email: we answer within 24 hours.",
+                 "Des réponses courtes et directes. Si votre question n'y est pas, écrivez-nous sur WeChat, WhatsApp ou par email : réponse sous 24 heures.",
+                 "简短直接的回答。如果没有找到您的问题，欢迎通过微信、WhatsApp 或邮件联系我们，24 小时内回复。"),
+})
+
+FAQ = [
+    (("What is WINDCHIC?",
+      "Qu'est-ce que WINDCHIC ?",
+      "WINDCHIC 是一家什么样的公司？"),
+     ("WINDCHIC is an event production and coordination company in Europe for Chinese and international clients. We organise trade-show participation, business delegations, corporate events and the services around them (event staff, interpreters, design, catering, entertainment, audiovisual and equipment), with one Chinese-speaking contact and an operations team on the ground.",
+      "WINDCHIC est une entreprise de production et de coordination d'événements en Europe pour des clients chinois et internationaux. Nous organisons la participation à des salons, des délégations d'affaires, des événements d'entreprise et tous les services associés (staff, interprètes, design, traiteur, animation, audiovisuel, matériel), avec une interlocutrice sinophone et une équipe opérationnelle sur le terrain.",
+      "WINDCHIC 是一家为中国及国际客户提供欧洲活动策划与落地执行的公司。我们负责海外参展、商务考察团接待、企业活动以及相关配套服务（活动人员、翻译、设计、餐饮、演出、视听与设备），全程由中文项目负责人对接，欧洲本地团队执行。")),
+    (("Which countries and cities in Europe do you cover?",
+      "Dans quels pays et villes d'Europe intervenez-vous ?",
+      "你们可以在欧洲哪些国家和城市执行活动？"),
+     ("We work across Europe, mainly in France, Spain and Italy. Our projects and missions include Paris, Lyon, Montpellier and Bordeaux in France, Segovia, Madrid and Barcelona in Spain, and site operations in the United Kingdom.",
+      "Nous intervenons dans toute l'Europe, principalement en France, en Espagne et en Italie. Nos projets et missions incluent Paris, Lyon, Montpellier et Bordeaux en France, Ségovie, Madrid et Barcelone en Espagne, ainsi que des opérations de site au Royaume-Uni.",
+      "我们的服务覆盖全欧洲，以法国、西班牙和意大利为主。已执行或参与的项目包括法国的巴黎、里昂、蒙彼利埃、波尔多，西班牙的塞哥维亚、马德里、巴塞罗那，以及英国的现场落地执行。")),
+    (("Is there a Chinese-speaking company that can run our event in Europe?",
+      "Existe-t-il une agence sinophone pour organiser notre événement en Europe ?",
+      "在欧洲办活动，有没有懂中文、能全程对接的执行公司？"),
+     ("Yes. At WINDCHIC, Wenjing, our Chinese-speaking project lead, handles the relationship with Chinese clients and keeps you updated on WeChat, WhatsApp or email. Théo runs operations in Europe: he selects and negotiates with providers and is on site on the day. Together the team works in Chinese, French, English, Spanish and German.",
+      "Oui. Chez WINDCHIC, Wenjing, notre cheffe de projet sinophone, gère la relation avec les clients chinois et vous tient informé sur WeChat, WhatsApp ou par email. Théo dirige les opérations en Europe : il sélectionne et négocie les prestataires et il est sur place le jour J. L'équipe travaille en chinois, français, anglais, espagnol et allemand.",
+      "有。WINDCHIC 的中文项目负责人文静负责中国客户的对接与跨文化沟通，通过微信、WhatsApp 或邮件实时同步进度；Théo 负责欧洲运营，挑选并洽谈供应商，活动当天亲临现场。团队工作语言包括中文、法语、英语、西班牙语和德语。")),
+    (("Our company is exhibiting at a trade show in Europe. What can you handle?",
+      "Notre entreprise expose sur un salon en Europe. Que pouvez-vous prendre en charge ?",
+      "中国企业去欧洲参展，你们能提供哪些落地服务？"),
+     ("Stand staff and bilingual hosts, Chinese-speaking interpreters, multilingual sales on the stand, brand activations, equipment rental and installation, travel and hotel planning, and logistics before and after the show, including storage. Examples: a live dance activation at Piscine Global in Lyon, travel operations for MWC in Barcelona and multilingual exhibition sales in Paris.",
+      "Staff de stand et hôtesses bilingues, interprètes sinophones, vente multilingue sur le stand, activations de marque, location et installation de matériel, organisation des vols et hôtels, logistique avant et après le salon, stockage compris. Exemples : une activation dansée au salon Piscine Global à Lyon, l'organisation des déplacements pour le MWC à Barcelone et la vente multilingue sur un salon à Paris.",
+      "展台人员与双语礼仪、中文翻译、展台多语种销售、品牌活动、设备租赁与安装、机票酒店行程安排，以及展前展后物流与仓储。案例包括：里昂 Piscine Global 泳池展的舞蹈快闪活动、巴塞罗那 MWC 世界移动通信大会的差旅统筹、巴黎展会的多语种展台销售。")),
+    (("Can you organise a Chinese business delegation or study tour in France?",
+      "Pouvez-vous organiser une délégation d'affaires chinoise ou un voyage d'études en France ?",
+      "中国商务考察团去法国、欧洲考察，谁可以负责行程安排和接待？"),
+     ("Yes. We build the programme, arrange company visits and meetings with decision-makers, and handle transport and interpretation. For a group of Chinese business owners, we organised visits to Carrefour's headquarters and the distributor Centrale Food, and meetings in Bordeaux. We also plan hot meals with Chinese options, rest after long-haul flights and bilingual programmes.",
+      "Oui. Nous construisons le programme, organisons les visites d'entreprises et les rendez-vous avec les décideurs, et gérons le transport et l'interprétariat. Pour un groupe d'entrepreneurs chinois, nous avons organisé la visite du siège de Carrefour et du distributeur Centrale Food, ainsi que des rendez-vous à Bordeaux. Nous prévoyons aussi des repas chauds avec options chinoises, du repos après les vols long-courriers et des programmes bilingues.",
+      "可以。我们负责制定行程、安排企业参观和与决策者的商务会谈，并全程负责交通与翻译。我们曾为一批中国企业家安排参观家乐福总部和分销商 Centrale Food，并在波尔多组织商务会谈。行程中会安排热餐和中餐选择、长途飞行后的休息时间，以及中外双语日程。")),
+    (("Can you source specific event equipment in Europe, such as screens, kiosks or tablets?",
+      "Pouvez-vous trouver du matériel événementiel spécifique en Europe (écrans, bornes, tablettes) ?",
+      "在欧洲办活动需要租特定设备（触摸屏、显示屏、平板），你们能找到吗？"),
+     ("Yes. We turn your brief into a technical specification, compare rental companies and quotes, and coordinate delivery, installation and testing. For DJI Enterprise in Segovia, Spain, we benchmarked suppliers in Spain and France and delivered ten identical touchscreen kiosks, running on 17 November 2026. In Madrid we found 13-inch Android tablets with mobile data, which most catalogues do not offer.",
+      "Oui. Nous traduisons votre besoin en cahier des charges technique, comparons loueurs et devis, puis coordonnons livraison, installation et tests. Pour DJI Enterprise à Ségovie (Espagne), nous avons comparé des fournisseurs en Espagne et en France et livré dix bornes tactiles identiques, en fonctionnement le 17 novembre 2026. À Madrid, nous avons trouvé des tablettes Android 13 pouces avec données mobiles, absentes de la plupart des catalogues.",
+      "可以。我们把您的需求转化为技术规格，比较租赁商与报价，并统筹交付、安装与测试。我们曾为 DJI Enterprise 在西班牙塞哥维亚的活动对比西班牙和法国的供应商，交付十台同规格触摸屏一体机，于 2026 年 11 月 17 日顺利运行；在马德里，我们找到了大多数租赁目录里没有的 13 英寸安卓插卡平板。")),
+    (("What size of event can you handle?",
+      "Quelle taille d'événement pouvez-vous gérer ?",
+      "你们能承接多大规模的活动？"),
+     ("From a 20-guest dinner to a 500-person convention. We have no fixed catalogue: we assemble the right providers for each event.",
+      "D'un dîner de 20 invités à une convention de 500 personnes. Nous n'avons pas de catalogue figé : nous réunissons les bons prestataires pour chaque événement.",
+      "从 20 人的晚宴到 500 人的大会都可以。我们没有固定套餐，会为每场活动组合最合适的供应商。")),
+    (("How fast do you answer and send a quote?",
+      "En combien de temps répondez-vous et envoyez-vous un devis ?",
+      "多久能回复？多久能拿到报价方案？"),
+     ("We answer within 24 hours, and the first exchange is free and without commitment. Once we have your brief, you receive a structured proposal within 48 hours: providers, options and a transparent budget.",
+      "Nous répondons sous 24 heures, et le premier échange est gratuit et sans engagement. Une fois votre brief reçu, vous recevez sous 48 heures une proposition structurée : prestataires, options et budget transparent.",
+      "我们 24 小时内回复，首次沟通免费且无任何承诺。收到您的需求后，48 小时内提供结构化方案：供应商、可选项与透明预算。")),
+    (("How much does an event in Europe cost?",
+      "Combien coûte un événement en Europe ?",
+      "在欧洲办一场活动大概要多少钱？"),
+     ("It depends on the city, the date, the number of guests and the services you need, so we do not publish fixed prices. Give us a budget range with your brief and we will tell you what is realistic, with every quote compared and every line explained.",
+      "Cela dépend de la ville, de la date, du nombre d'invités et des prestations souhaitées : nous ne publions donc pas de prix fixes. Donnez-nous une fourchette de budget avec votre brief et nous vous dirons ce qui est réaliste, avec des devis comparés et chaque ligne expliquée.",
+      "费用取决于城市、日期、人数和所需服务，因此我们不设固定报价。请在需求中告诉我们大致预算范围，我们会告诉您哪些可行，每份报价都经过比较，每一项都解释清楚。")),
+    (("What information should we send to get a proposal?",
+      "Quelles informations envoyer pour recevoir une proposition ?",
+      "要拿到方案，需要提供哪些信息？"),
+     ("The city, the date, the venue if you know it, the number of guests and the experience you want. Separate what is mandatory from what is nice to have, give a budget range and tell us who approves decisions.",
+      "La ville, la date, le lieu si vous le connaissez, le nombre d'invités et l'expérience souhaitée. Distinguez l'indispensable du souhaitable, donnez une fourchette de budget et dites-nous qui valide les décisions.",
+      "城市、日期、场地（如已确定）、人数和期望的体验效果。请区分必须项和加分项，给出预算范围，并告诉我们由谁拍板。")),
+    (("Do you also help with sourcing between China and Europe?",
+      "Accompagnez-vous aussi le sourcing entre la Chine et l'Europe ?",
+      "你们能做中欧之间的采购寻源吗？"),
+     ("Yes. We help find manufacturers, compare quotations and coordinate procurement between China and Europe.",
+      "Oui. Nous aidons à trouver des fabricants, à comparer les devis et à coordonner les achats entre la Chine et l'Europe.",
+      "可以。我们协助筛选制造商、比较报价，并协调中欧之间的采购流程。")),
+    (("Do you have a partner in China?",
+      "Avez-vous un partenaire en Chine ?",
+      "你们在国内有合作伙伴吗？"),
+     ("Yes. Our partner in China is KKD Group, a brand consultancy and event design company based in Guangdong with 18 years of events in China. A request can start in China and be delivered in Europe with the same standard on both sides.",
+      "Oui. Notre partenaire en Chine est KKD Group, agence de conseil en marque et de design événementiel basée dans le Guangdong, avec 18 ans d'événements en Chine. Une demande peut ainsi commencer en Chine et être livrée en Europe avec la même exigence.",
+      "有。我们在国内的合作伙伴是东方科德（KKD Group），一家位于广东的品牌咨询与活动设计公司，拥有 18 年国内活动经验。需求可以在国内发起，在欧洲落地，两边执行标准一致。")),
+    (("How can we contact WINDCHIC?",
+      "Comment contacter WINDCHIC ?",
+      "怎么联系 WINDCHIC？可以加微信吗？"),
+     ("WeChat: Contact-Windchic. WhatsApp and phone: +33 7 82 65 40 82. Email: info@windchic.com. You can also send your brief through the form on our contact page.",
+      "WeChat : Contact-Windchic. WhatsApp et téléphone : +33 7 82 65 40 82. Email : info@windchic.com. Vous pouvez aussi envoyer votre brief via le formulaire de la page contact.",
+      "可以。微信号：Contact-Windchic。WhatsApp 与电话：+33 7 82 65 40 82。邮箱：info@windchic.com。也可以通过联系页面的表单提交需求。")),
+]
+
+S.update({
+    "faq.org": ("WINDCHIC is an event production and coordination company in Europe for Chinese and international clients: trade shows, business delegations, corporate events, event staff, design, catering, entertainment, audiovisual and China–Europe sourcing, with one Chinese-speaking contact and an operations team on the ground.",
+                "WINDCHIC est une entreprise de production et de coordination d'événements en Europe pour clients chinois et internationaux : salons, délégations d'affaires, événements d'entreprise, staff, design, traiteur, animation, audiovisuel et sourcing Chine–Europe, avec une interlocutrice sinophone et une équipe opérationnelle sur le terrain.",
+                "WINDCHIC 是为中国及国际客户提供欧洲活动策划与落地执行的公司：海外参展、商务考察团接待、企业活动、活动人员、设计、餐饮、演出、视听及中欧采购寻源，全程中文对接，欧洲本地团队执行。"),
+    "faq.role.w": ("Co-founder, Chinese-speaking project lead", "Cofondatrice, cheffe de projet sinophone", "联合创始人，中文项目负责人"),
+    "faq.role.t": ("Co-founder, operations lead in Europe", "Cofondateur, responsable des opérations en Europe", "联合创始人，欧洲运营负责人"),
+    "wx.label": ("Add us on WeChat", "Nous ajouter sur WeChat", "添加微信咨询"),
+    "zh.keywords": ("event production Europe, trade show support Europe, Chinese delegation Europe", "organisation événement Europe, salon, délégation chinoise", "欧洲活动执行,欧洲活动策划,海外活动落地,欧洲展会服务,法国展会,海外参展,出海企业欧洲活动,商务考察团接待,欧洲商务考察,中文翻译,活动人员,欧洲会展,法国活动公司,西班牙活动执行,中欧采购"),
+})
+
+# Chinese titles and descriptions use the words people type into Baidu, DeepSeek
+# or Doubao (出海, 落地执行, 海外参展, 商务考察). To be reviewed by Wenjing.
+def _zh(key, value):
+    en, fr, _ = S[key]
+    S[key] = (en, fr, value)
+
+_zh("home.title", "WINDCHIC — 欧洲活动策划与落地执行 · 海外参展 · 商务考察 · 全程中文对接")
+_zh("home.desc", "中国企业出海欧洲的活动执行伙伴：海外参展、商务考察团接待、企业活动、活动人员与翻译、餐饮、视听设备。中文项目负责人全程对接，法国、西班牙、意大利本地团队执行。")
+_zh("services.title", "服务 — WINDCHIC 欧洲活动执行、展会服务与商务接待")
+_zh("services.desc", "欧洲活动一站式服务：展会人员与翻译、展台活动、设备租赁、活动设计、餐饮、演出、视听、团建、商务考察团接待与中欧采购寻源，覆盖法国、西班牙、意大利及全欧洲。")
