@@ -852,3 +852,11 @@ S.update({
                   "Contrats, logistique, équipes : un seul interlocuteur, présent sur place.",
                   "合同、物流、团队统一管理：一个对接人，活动当天亲临现场。"),
 })
+
+S.update({
+    "services.more": ("See details", "Voir le détail", "查看详情"),
+    "services.event.eyebrow": ("Event services", "Prestations événementielles", "活动服务"),
+    "services.event.title": ("Everything around your event.<br><em>Booked and managed by us.</em>",
+                             "Tout ce qui entoure votre événement.<br><em>Réservé et piloté par nous.</em>",
+                             "活动所需的一切，<br><em>由我们预订和管理。</em>"),
+})
