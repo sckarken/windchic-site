@@ -492,3 +492,17 @@ details p{margin-top:12px;font-size:15px;color:var(--text)}
 .kkd-gallery-6{grid-template-columns:repeat(3,1fr);margin-top:28px}
 .kkd-gallery-6 figure{aspect-ratio:3/2}
 @media (max-width:720px){.kkd-gallery-6{grid-template-columns:1fr 1fr;gap:8px}}
+
+/* FAQ page */
+.faq-head{padding-top:calc(var(--section) + 60px);padding-bottom:0}
+.faq-head .lead{color:var(--text);max-width:40em}
+.faq-list{display:grid;gap:0}
+.faq-item{border-top:1px solid var(--line);padding:22px 0}
+.faq-item:last-child{border-bottom:1px solid var(--line)}
+.faq-item summary{display:flex;justify-content:space-between;gap:24px;width:100%;color:var(--ink)}
+.faq-item summary h2{margin:0;font:600 clamp(17px,1.5vw,20px)/1.4 var(--sans);color:var(--ink)}
+.faq-item summary::after{color:var(--gold-deep);flex:none}
+.faq-item p{font-size:clamp(16px,1.3vw,18px);max-width:46em}
+/* WeChat floating button (Chinese pages) */
+.wx-float,.wx-float::before{background:#07c160}
+.faq-body{padding-top:clamp(32px,4vw,56px)}
