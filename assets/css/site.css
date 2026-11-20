@@ -541,3 +541,27 @@ details p{margin-top:12px;font-size:15px;color:var(--text)}
 }
 @keyframes nudge{50%{transform:translateX(6px)}}
 @media (prefers-reduced-motion:reduce){.swipe-hint span{animation:none}}
+
+/* Services v7: compact cards for the eight event services */
+.ev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,24px)}
+.ev-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.ev-media{aspect-ratio:3/2;overflow:hidden}
+.ev-media img{width:100%;height:100%;object-fit:cover}
+.ev-body{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
+.ev-body h3{font:500 clamp(21px,1.7vw,25px)/1.2 var(--serif);margin:0;color:var(--ink)}
+.lang-zh .ev-body h3{font-weight:600}
+.ev-lede{margin:0;font-size:15px;color:var(--text)}
+.ev-body details p{font-size:14px}
+.ev-body .checks{margin:10px 0 0;font-size:14px}
+.ev-body .link-arrow{margin-top:auto;padding-top:8px;align-self:flex-start}
+@media (max-width:1180px){.ev-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:720px){
+  .chips.swipe{flex-wrap:nowrap;padding-block:18px}
+  .chips.swipe>a{flex:0 0 auto;white-space:nowrap}
+  .case-gallery.swipe>figure{flex-basis:86%;aspect-ratio:4/3!important;grid-row:auto}
+  .kkd-gallery.swipe>figure{flex-basis:80%;aspect-ratio:4/3}
+  .kkd-gallery.swipe>figure img{width:100%;height:100%;object-fit:cover}
+  .case-cols.swipe>*{flex-basis:84%;background:#fff;border-radius:var(--radius);padding:4px 18px 16px}
+  .case-gallery{margin-bottom:24px}
+  .who-grid.swipe>*{flex-basis:80%}
+}

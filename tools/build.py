@@ -417,12 +417,12 @@ def partners_block(p):
 
 def page_services(p):
     blocks = []
-    for i, (sid, k, image) in enumerate(SERVICES, 1):
+    for i, (sid, k, image) in enumerate(CORE, 1):
         items = "".join(f"<li>{x}</li>" for x in p.lst(k + ".l"))
         blocks.append(f"""<section class="svc-block{' is-alt' if i % 2 == 0 else ''}" id="{sid}">
   <div class="svc-media img-reveal">{picture(p, image, k + '.t', '')}</div>
   <div class="svc-copy reveal">
-    <p class="eyebrow">{p.t('services.core') if i <= len(CORE) else p.t('services.event')} · {i:02d} / {len(SERVICES)}</p>
+    <p class="eyebrow">{p.t('services.core')} · {i:02d} / {len(CORE)}</p>
     <h2 class="display">{p.t(k + '.t')}</h2>
     <p class="svc-lede">{p.t(k + '.s')}</p>
     <p>{p.t(k + '.d')}</p>
@@ -431,20 +431,44 @@ def page_services(p):
     <a class="link-arrow" href="{p.href('contact')}?service={sid}">{p.t('services.ask')} <span aria-hidden="true">→</span></a>
   </div>
 </section>""")
+    cards = "".join(f"""<article class="ev-card reveal" id="{sid}">
+  <div class="ev-media">{picture(p, image, k + '.t', '')}</div>
+  <div class="ev-body">
+    <h3>{p.t(k + '.t')}</h3>
+    <p class="ev-lede">{p.t(k + '.s')}</p>
+    <details><summary>{p.t('services.more')}</summary>
+      <p>{p.t(k + '.d')}</p>
+      <ul class="checks">{"".join(f"<li>{x}</li>" for x in p.lst(k + ".l"))}</ul>
+    </details>
+    <a class="link-arrow" href="{p.href('contact')}?service={sid}">{p.t('services.ask')} <span aria-hidden="true">→</span></a>
+  </div>
+</article>""" for sid, k, image in EVENT)
     chips = "".join(f'<a href="#{sid}">{p.t(k + ".t")}</a>' for sid, k, _ in SERVICES)
     who = "".join(
         f'<article class="who reveal"><h3>{p.t(f"services.for.{x}.t")}</h3><p>{p.t(f"services.for.{x}.d")}</p></article>'
         for x in "abcd")
     return f"""{subhero(p, 'services.hero', 'services-hero', '50% 55%')}
-<nav class="chips wrap" aria-label="{p.e('nav.services')}">{chips}</nav>
+<nav class="chips wrap swipe" aria-label="{p.e('nav.services')}">{chips}</nav>
 {''.join(blocks)}
-<section class="section section-sand">
+<section class="section section-sand" id="event-services">
+  <div class="wrap">
+    <div class="section-head reveal"><div><p class="eyebrow">{p.t('services.event.eyebrow')}</p><h2 class="display">{p.t('services.event.title')}</h2></div></div>
+    <div class="ev-grid swipe">{cards}</div>
+    {swipe_hint(p)}
+  </div>
+</section>
+<section class="section">
   <div class="wrap">
     <div class="section-head reveal"><div><p class="eyebrow">{p.t('services.for.eyebrow')}</p><h2 class="display">{p.t('services.for.title')}</h2></div></div>
-    <div class="who-grid">{who}</div>
+    <div class="who-grid swipe">{who}</div>
+    {swipe_hint(p)}
   </div>
 </section>
 {cta_band(p)}"""
+
+
+def swipe_hint(p):
+    return f'<p class="swipe-hint" aria-hidden="true">{p.t("home.swipe")} <span>→</span></p>'
 
 
 def case_block(p, cid, prefix, status, images, layout):
@@ -459,8 +483,8 @@ def case_block(p, cid, prefix, status, images, layout):
       <h2 class="display">{p.t(prefix + '.title')}</h2>
       <p class="lead">{p.t(prefix + '.sub')}</p>
     </div>
-    <div class="case-gallery gallery-{layout}">{figs}</div>
-    <div class="case-cols">
+    <div class="case-gallery gallery-{layout} swipe">{figs}</div>
+    <div class="case-cols swipe">
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t(prefix + '.challenge.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t(prefix + '.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t(prefix + '.result.d')}</p></div>
@@ -493,12 +517,12 @@ def page_projects(p):
       <h2 class="display">{p.t('case.title')}</h2>
       <p class="lead">{p.t('case.sub')}</p>
     </div>
-    <div class="case-gallery gallery-feature">
+    <div class="case-gallery gallery-feature swipe">
       <figure class="img-reveal g-main">{picture(p, 'segovia-room', 'case.alt3', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'segovia-detail', 'case.alt2', '', '60% 45%')}</figure>
       <figure class="img-reveal">{picture(p, 'segovia-city', 'case.alt4', '', '45% 65%')}</figure>
     </div>
-    <div class="case-cols">
+    <div class="case-cols swipe">
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('case.challenge.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t('case.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t('case.result.d')}</p></div>
@@ -512,12 +536,12 @@ def page_projects(p):
       <h2 class="display">{p.t('gc.title')}</h2>
       <p class="lead">{p.t('gc.sub')}</p>
     </div>
-    <div class="case-gallery gallery-feature">
+    <div class="case-gallery gallery-feature swipe">
       <figure class="img-reveal g-main">{picture(p, 'glamcamp-team', 'gc.alt1', '', '62% 40%')}</figure>
       <figure class="img-reveal">{picture(p, 'glamcamp-tent-front', 'gc.alt2', '', '50% 60%')}</figure>
       <figure class="img-reveal">{picture(p, 'glamcamp-tent-side', 'gc.alt3', '', '50% 60%')}</figure>
     </div>
-    <div class="case-cols">
+    <div class="case-cols swipe">
       <div class="reveal"><h3>{p.t('case.challenge.t')}</h3><p>{p.t('gc.challenge.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t('gc.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t('gc.result.d')}</p></div>
@@ -536,18 +560,18 @@ def page_projects(p):
       <div class="reveal"><p class="eyebrow">{p.t('kkd.eyebrow')}</p><h2 class="display">{p.t('kkd.title')}</h2></div>
       <div class="reveal"><p class="lead">{p.t('kkd.lead')}</p><p class="kkd-why">{p.t('kkd.why')}</p></div>
     </div>
-    <div class="kkd-gallery">
+    <div class="kkd-gallery swipe">
       <figure class="img-reveal">{picture(p, 'kkd-conference', 'kkd.alt1', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'kkd-waic', 'kkd.alt2', '', '50% 50%')}</figure>
     </div>
-    <div class="kkd-gallery kkd-gallery-4">
+    <div class="kkd-gallery kkd-gallery-4 swipe">
       <figure class="img-reveal">{picture(p, 'cn-bigdata-room', 'bd.alt1', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-bigdata-stage', 'bd.alt2', '', '45% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-bigdata-audience', 'bd.alt3', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-bigdata-hall', 'bd.alt4', '', '55% 50%')}</figure>
     </div>
     <p class="small kkd-credit">{p.t('bd.caption')}</p>
-    <div class="kkd-gallery kkd-gallery-6">
+    <div class="kkd-gallery kkd-gallery-6 swipe">
       <figure class="img-reveal">{picture(p, 'cn-sichuan-night', 'sc.alt1', '', '50% 50%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-sichuan-opera', 'sc.alt2', '', '55% 35%')}</figure>
       <figure class="img-reveal">{picture(p, 'cn-sanxingdui-press', 'sc.alt3', '', '50% 60%')}</figure>
