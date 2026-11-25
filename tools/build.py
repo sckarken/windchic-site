@@ -9,6 +9,7 @@ Outputs:  /*.html (English), /fr/*.html (Français), /zh/*.html (中文),
 """
 import html
 import json
+import re
 import os
 import sys
 from urllib.parse import quote
@@ -18,7 +19,7 @@ from content import FAQ, LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.7"
+VERSION = "6.8"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -189,7 +190,7 @@ def header(p, overlay=True):
 <header class="site-header{' is-overlay' if overlay else ''}" data-header>
   <div class="header-inner">
     <a class="brand" href="{p.href('index')}" aria-label="WINDCHIC · {p.e('nav.home')}">
-      <img src="{p.pre}assets/logos/windchic-white.png" alt="WINDCHIC" width="164" height="48">
+      <img src="{p.pre}assets/logos/windchic-logo-v2-light.svg" alt="WINDCHIC" width="208" height="40">
     </a>
     <nav class="main-nav" aria-label="Main">{links}</nav>
     <div class="header-actions">
@@ -223,6 +224,18 @@ def footer_cta(p):
     </div>"""
 
 
+def _wordmark_svg():
+    """Inline wordmark (W and I fused) so it inherits currentColor for the hover state."""
+    with open(os.path.join(ROOT, "assets", "logos", "windchic-wordmark-light.svg"), encoding="utf-8") as f:
+        svg = f.read().strip()
+    svg = re.sub(r"<title>.*?</title>", "", svg)
+    svg = svg.replace('fill="#ebe5d8"', 'fill="currentColor"')
+    return svg.replace('role="img"', 'aria-hidden="true" focusable="false"')
+
+
+WORDMARK_SVG = _wordmark_svg()
+
+
 def footer(p):
     svc = "".join(f'<li><a href="{p.href("services")}#{sid}">{p.t(k + ".t")}</a></li>' for sid, k, _ in SERVICES[:6])
     nav = "".join(f'<li><a href="{p.href(s)}">{p.t(k)}</a></li>' for s, k in PAGES + [("faq", "nav.faq")])
@@ -234,7 +247,7 @@ def footer(p):
     {footer_cta(p)}
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="{p.pre}assets/logos/windchic-white.png" alt="WINDCHIC" width="190" height="56" loading="lazy">
+        <img src="{p.pre}assets/logos/windchic-logo-v2-light.svg" alt="WINDCHIC" width="234" height="45" loading="lazy">
         <p>{p.t("footer.pitch")}</p>
       </div>
       <div><h3>{p.t("footer.explore")}</h3><ul>{nav}</ul></div>
@@ -252,7 +265,7 @@ def footer(p):
       {lang_switch(p, 'lang-footer')}
     </div>
   </div>
-  <a class="footer-word" href="{p.href('index')}" aria-label="WINDCHIC">{''.join(f'<span style="--i:{i}">{c}</span>' for i, c in enumerate('WINDCHIC'))}</a>
+  <a class="footer-word" href="{p.href('index')}" aria-label="WINDCHIC">{WORDMARK_SVG}</a>
 </footer>
 {float_btn(p, wa_svg)}
 </body>
