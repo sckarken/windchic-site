@@ -306,10 +306,10 @@ def cta_band(p):
 # ── Pages ───────────────────────────────────────────────────────────────
 
 HOME_DO = [  # (services anchor, copy key, image) — the four practices shown on the home page
-    ("exhibitions", "home.do.expo", "svc-exhibitions"),
+    ("exhibitions", "home.do.expo", "lyon-aiper-1"),
     ("concierge", "home.do.deleg", "deleg-carrefour"),
-    ("equipment", "home.do.equip", "svc-equipment"),
-    ("sourcing", "home.do.source", "svc-sourcing"),
+    ("equipment", "home.do.equip", "home-equipment"),
+    ("sourcing", "home.do.source", "home-sourcing"),
 ]
 
 
@@ -547,14 +547,14 @@ def page_projects(p):
   </div>
 </section>
 {case_block(p, 'lyon', 'ly', 'status.delivered', [
-    ('lyon-aiper-1', 'ly.alt1', '50% 50%'), ('lyon-aiper-2', 'ly.alt2', '50% 55%'),
-    ('lyon-aiper-3', 'ly.alt3', '50% 55%'), ('lyon-aiper-4', 'ly.alt4', '50% 55%')], 'grid')}
+    ('lyon-aiper-4', 'ly.alt4', '50% 55%'), ('lyon-aiper-2', 'ly.alt2', '50% 55%'),
+    ('lyon-aiper-3', 'ly.alt3', '50% 55%')], 'feature')}
 {case_block(p, 'montpellier', 'mtp', 'status.delivered', [
     ('mtp-truck', 'mtp.alt1', '50% 60%'), ('mtp-unloading', 'mtp.alt2', '50% 55%'),
     ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad')}
 {case_block(p, 'delegation', 'dl', 'status.team', [
-    ('deleg-carrefour', 'dl.alt1', '50% 60%'), ('deleg-centrale-food', 'dl.alt2', '50% 55%'),
-    ('deleg-bordeaux', 'dl.alt3', '50% 55%'), ('deleg-meeting', 'dl.alt4', '50% 50%')], 'grid')}
+    ('deleg-centrale-food', 'dl.alt2', '50% 55%'),
+    ('deleg-bordeaux', 'dl.alt3', '50% 55%'), ('deleg-meeting', 'dl.alt4', '50% 50%')], 'feature')}
 <section class="section kkd" id="kkd">
   <div class="wrap">
     <div class="split">
