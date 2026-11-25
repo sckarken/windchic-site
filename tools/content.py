@@ -682,3 +682,25 @@ S.update({
     "sc.alt5": ("Outdoor interview in a traditional garden", "Interview en extérieur dans un jardin traditionnel", "传统园林中的户外采访"),
     "sc.alt6": ("Press conference with camera crews in a showroom", "Point presse avec équipes de tournage dans un showroom", "展厅内的媒体发布会"),
 })
+
+
+S.update({
+    "ly.eyebrow": ("Case study · Artistic production", "Étude de cas · Production artistique", "案例分析 · 艺术制作"),
+    "ly.title": ("A flash mob for Aiper · Piscine Global, Lyon", "Un flash mob pour Aiper · Piscine Global, Lyon", "为 Aiper 打造快闪 · 里昂 Piscine Global 展会"),
+    "ly.sub": ("Professional dancers in front of the stand of a pool-robot brand at the world's pool-industry fair.",
+               "Des danseurs professionnels devant le stand d'une marque de robots de piscine, au salon mondial de la piscine.",
+               "在全球泳池行业展会上，专业舞者在泳池机器人品牌展台前献演。"),
+    "ly.challenge.d": ("Aiper, a pool-cleaning robot brand, wanted its stand at Piscine Global to stop visitors in the aisles. The brief: a synchronised flash mob by professional dancers, in brand outfits, at fixed times during the show.",
+                       "Aiper, marque de robots nettoyeurs de piscine, voulait que son stand à Piscine Global arrête les visiteurs dans les allées. Le brief : un flash mob synchronisé par des danseurs professionnels, aux couleurs de la marque, à horaires fixes pendant le salon.",
+                       "泳池清洁机器人品牌 Aiper 希望其 Piscine Global 展台能让过道里的观众驻足。需求：由专业舞者身着品牌服装，在展会期间定时进行同步快闪表演。"),
+    "ly.approach.d": ("We found a dance crew in Lyon able to learn the reference choreography quickly, then locked every detail with the exhibitor and the venue: music, rehearsal, exhibitor badges, access times, changing space and the performance slots in front of the stand.",
+                      "Nous avons trouvé à Lyon une troupe capable d'apprendre rapidement la chorégraphie de référence, puis calé chaque détail avec l'exposant et le lieu : musique, répétition, badges exposants, horaires d'accès, loges et créneaux de passage devant le stand.",
+                      "我们在里昂找到能快速掌握参考编舞的舞团，并与参展商和场馆敲定每个细节：音乐、彩排、参展证、进场时间、更衣区以及展台前的演出时段。"),
+    "ly.result.d": ("The performance ran in front of the stand as planned, drawing a crowd of visitors and phones out to film it.",
+                    "Le spectacle s'est déroulé devant le stand comme prévu, en attirant un attroupement de visiteurs, téléphones à la main pour filmer.",
+                    "表演如期在展台前上演，吸引大批观众驻足，纷纷拿出手机拍摄。"),
+    "ly.alt1": ("Dancers performing in front of the Aiper stand", "Danseurs en pleine performance devant le stand Aiper", "舞者在 Aiper 展台前表演"),
+    "ly.alt2": ("Dance crew in formation in the aisle at Piscine Global", "La troupe en formation dans l'allée de Piscine Global", "舞团在 Piscine Global 过道列队表演"),
+    "ly.alt3": ("Solo dancer in front of the crew and the Aiper stand", "Danseur soliste devant la troupe et le stand Aiper", "领舞在舞团与 Aiper 展台前"),
+    "ly.alt4": ("Wide view of the flash mob next to the Aiper demonstration pool", "Vue large du flash mob à côté du bassin de démonstration Aiper", "Aiper 演示泳池旁的快闪全景"),
+})

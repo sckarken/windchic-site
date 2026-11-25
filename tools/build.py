@@ -18,7 +18,7 @@ from content import LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.6"
+VERSION = "6.7"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -461,8 +461,7 @@ def case_block(p, cid, prefix, status, images, layout):
 
 
 def page_projects(p):
-    projects = [("lyon", "pj.lyon", "proj-lyon", "status.progress", "50% 40%"),
-                ("madrid", "pj.mad", "proj-madrid", "status.prep", "60% 50%"),
+    projects = [("madrid", "pj.mad", "proj-madrid", "status.prep", "60% 50%"),
                 ("barcelona", "pj.bcn", "proj-barcelona", "status.prep", "50% 60%"),
                 ("paris", "pj.par", "proj-paris-sales", "status.team", "35% 40%")]
     cards = "".join(f"""<article class="proj-card reveal" id="{pid}">
@@ -514,6 +513,9 @@ def page_projects(p):
     </div>
   </div>
 </section>
+{case_block(p, 'lyon', 'ly', 'status.delivered', [
+    ('lyon-aiper-1', 'ly.alt1', '50% 50%'), ('lyon-aiper-2', 'ly.alt2', '50% 55%'),
+    ('lyon-aiper-3', 'ly.alt3', '50% 55%'), ('lyon-aiper-4', 'ly.alt4', '50% 55%')], 'grid')}
 {case_block(p, 'montpellier', 'mtp', 'status.delivered', [
     ('mtp-truck', 'mtp.alt1', '50% 60%'), ('mtp-unloading', 'mtp.alt2', '50% 55%'),
     ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad')}
