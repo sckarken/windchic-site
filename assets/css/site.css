@@ -565,3 +565,10 @@ details p{margin-top:12px;font-size:15px;color:var(--text)}
   .case-gallery{margin-bottom:24px}
   .who-grid.swipe>*{flex-basis:80%}
 }
+
+/* "After" gallery under a case study */
+.after-label{margin:clamp(40px,5vw,64px) 0 16px}
+.gallery-after{grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr}
+.gallery-after figure,.gallery-after figure:last-child{aspect-ratio:4/3}
+.gallery-after .g-main{grid-row:span 2;aspect-ratio:auto}
+@media (max-width:720px){.gallery-after{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gallery-after .g-main{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}

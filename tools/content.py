@@ -882,3 +882,13 @@ S.update({
     "ly.alt3": ("Solo dancer in front of the crew", "Danseur soliste devant la troupe", "领舞在舞团前表演"),
     "ly.alt4": ("Wide view of the flash mob next to the demonstration pool", "Vue large du flash mob à côté du bassin de démonstration", "演示泳池旁的快闪全景"),
 })
+
+
+S.update({
+    "case.after": ("After: offices furnished and ready", "Après : bureaux montés et prêts", "完成后：办公室布置就绪"),
+    "mtp.after1": ("Meeting room furnished with a long table and chairs", "Salle de réunion meublée, grande table et fauteuils", "布置完成的会议室，长桌与座椅"),
+    "mtp.after2": ("Bench desks with acoustic screens and lockers", "Postes en open space avec écrans acoustiques et casiers", "带隔音挡板与储物柜的开放式工位"),
+    "mtp.after3": ("Open-plan desks and lounge corner after assembly", "Open space et coin détente après montage", "组装完成的开放办公区与休闲角"),
+    "mtp.after4": ("Small meeting room with round table and sideboard", "Petite salle de réunion avec table ronde et buffet", "配圆桌与边柜的小会议室"),
+    "mtp.after5": ("Private office with desks and meeting table", "Bureau fermé avec postes et table de réunion", "配工位与会议桌的独立办公室"),
+})

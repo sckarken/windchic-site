@@ -19,7 +19,7 @@ from content import FAQ, LANGS, S, STORIES, t as _t  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://windchic.com"
-VERSION = "6.8"
+VERSION = "6.9"
 PHONE = "+33782654082"
 PHONE_H = "+33 7 82 65 40 82"
 EMAIL = "info@windchic.com"
@@ -483,7 +483,7 @@ def swipe_hint(p):
     return f'<p class="swipe-hint" aria-hidden="true">{p.t("home.swipe")} <span>→</span></p>'
 
 
-def case_block(p, cid, prefix, status, images, layout):
+def case_block(p, cid, prefix, status, images, layout, after=None):
     """Case study section: header, photo gallery, challenge / approach / result."""
     figs = "".join(
         f'<figure class="img-reveal{" g-main" if i == 0 and layout == "feature" else ""}">{picture(p, img, alt, "", pos)}</figure>'
@@ -501,9 +501,20 @@ def case_block(p, cid, prefix, status, images, layout):
       <div class="reveal"><h3>{p.t('case.approach.t')}</h3><p>{p.t(prefix + '.approach.d')}</p></div>
       <div class="reveal"><h3>{p.t('case.result.t')}</h3><p>{p.t(prefix + '.result.d')}</p></div>
     </div>
+    {after_gallery(p, after)}
   </div>
 </section>
 """
+
+
+def after_gallery(p, images):
+    """Optional 'after' photos shown below the case text (one large + four)."""
+    if not images:
+        return ""
+    figs = "".join(
+        f'<figure class="img-reveal{" g-main" if i == 0 else ""}">{picture(p, img, alt, "", pos)}</figure>'
+        for i, (img, alt, pos) in enumerate(images))
+    return f'<p class="eyebrow after-label">{p.t("case.after")}</p><div class="case-gallery gallery-after swipe">{figs}</div>'
 
 
 def page_projects(p):
@@ -564,7 +575,10 @@ def page_projects(p):
     ('lyon-aiper-3', 'ly.alt3', '50% 55%')], 'feature')}
 {case_block(p, 'montpellier', 'mtp', 'status.delivered', [
     ('mtp-truck', 'mtp.alt1', '50% 60%'), ('mtp-unloading', 'mtp.alt2', '50% 55%'),
-    ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad')}
+    ('mtp-boxes', 'mtp.alt3', '50% 55%'), ('mtp-office', 'mtp.alt4', '50% 60%')], 'quad', after=[
+    ('mtp-after-meeting', 'mtp.after1', '50% 55%'), ('mtp-after-desks', 'mtp.after2', '50% 60%'),
+    ('mtp-after-openspace', 'mtp.after3', '50% 55%'), ('mtp-after-room', 'mtp.after4', '50% 55%'),
+    ('mtp-after-office', 'mtp.after5', '50% 60%')])}
 {case_block(p, 'delegation', 'dl', 'status.team', [
     ('deleg-centrale-food', 'dl.alt2', '50% 55%'),
     ('deleg-bordeaux', 'dl.alt3', '50% 55%'), ('deleg-meeting', 'dl.alt4', '50% 50%')], 'feature')}
